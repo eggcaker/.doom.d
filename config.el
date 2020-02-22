@@ -5,4 +5,5 @@
 
 ;; Modules
 (load! "+ui")
+(load! "+mail")
 (load! "+org")
