@@ -7,3 +7,4 @@
 (load! "+ui")
 (load! "+mail")
 (load! "+org")
+(load! "+bindings")
