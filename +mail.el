@@ -1,9 +1,6 @@
 ;;; ~/.doom.d/+mail.el -*- lexical-binding: t; -*-
 
 (after! mu4e
-  (evil-set-initial-state 'mu4e-main-mode 'emacs)
-  (evil-set-initial-state 'mu4e-headers-mode 'emacs)
-  (evil-set-initial-state 'mu4e-view-mode 'emacs)
   (setq
    mu4e-get-mail-command "mbsync -c ~/.mbsyncrc -a"
    mu4e-maildir        (expand-file-name "~/.mails")
@@ -46,6 +43,10 @@
    mu4e-headers-signed-mark '("s" . "🔏 ")
    mu4e-headers-unread-mark '("u" . "✉ ")))
 
-(fset 'my-move-to-trash "mTrash")
-(define-key mu4e-headers-mode-map (kbd "d") 'my-move-to-trash)
-(define-key mu4e-view-mode-map (kbd "d") 'my-move-to-trash)
+(after! mu4e
+  (fset 'my-move-to-trash "mt")
+  (define-key mu4e-headers-mode-map (kbd "d") 'my-move-to-trash)
+  (define-key mu4e-view-mode-map (kbd "d") 'my-move-to-trash)
+
+  (define-key mu4e-headers-mode-map (kbd "D") 'my-move-to-trash)
+  (define-key mu4e-view-mode-map (kbd "D") 'my-move-to-trash))

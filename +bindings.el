@@ -1,5 +1,8 @@
 ;;; ~/.doom.d/+bindings.el -*- lexical-binding: t; -*-
 
+;; setup fd to exit insert mode instead jk
+
+(setq-default evil-escape-key-sequence "fd")
 
 (map!
  (:map with-editor-mode-map
@@ -40,4 +43,4 @@
    ))
 
 (map! :leader
-      :desc "M-x"                   "SPC"  #'execute-extended-command)
+      :desc "M-x"  :n  "SPC"  #'execute-extended-command)
