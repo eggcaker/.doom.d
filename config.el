@@ -4,6 +4,7 @@
       user-mail-address "eggcaker@gmail.com")
 
 ;; Modules
+(load! "+defaults")
 (load! "+ui")
 (load! "+mail")
 (load! "+org")
