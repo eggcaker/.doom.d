@@ -100,5 +100,10 @@
   :bind (:map notdeft-mode-map
           ("C-q" . notdeft-quit)
           ("C-r" . notdeft-refresh)
-          )
-)
+          ))
+
+
+(use-package! org-contacts
+  :ensure nil
+  :after org
+  :custom (org-contacts-files '("~/.org-notes/GTD/contacts.org")))
