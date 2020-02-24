@@ -1,6 +1,5 @@
 ;;; ~/.doom.d/+ui.el -*- lexical-binding: t; -*-
 
-
 ;; theme
 (setq doom-theme 'doom-vibrant)
 
@@ -29,3 +28,13 @@
 ;; line spacing
 (setq display-line-numbers-type nil)
 (setq line-spacing 4)
+
+;; start frame size
+(add-to-list 'initial-frame-alist '(fullscreen . maximized))
+
+;; dashboard custom
+(setq +doom-dashboard-functions
+      '(
+        doom-dashboard-widget-banner
+        doom-dashboard-widget-loaded
+        doom-dashboard-widget-footer))

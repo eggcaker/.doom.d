@@ -6,6 +6,7 @@
 ;; Modules
 (load! "+defaults")
 (load! "+ui")
+(load! "+git")
 (load! "+mail")
 (load! "+org")
 (load! "+bindings")

@@ -78,4 +78,27 @@
           "xelatex -interaction nonstopmode -output-directory %o %f"
           "xelatex -interaction nonstopmode -output-directory %o %f"
           "rm -fr %b.out %b.log %b.tex auto"))
+  )
+
+
+;; org deft
+(use-package! notdeft
+  :config
+  (setq notdeft-extension "org")
+  ;;(setq notdeft-secondary-extensions '("md" "org" "scrbl"))
+  (setq notdeft-directories '("~/src/personal/emacs.cc/blog/myself"
+                              "~/src/personal/emacs.cc/blog/life-thing"
+                              "~/src/personal/emacs.cc/blog/life-thing"
+                              "~/src/personal/emacs.cc/blog/traveling"
+                              "~/src/personal/emacs.cc/blog/agenda"
+                              "~/src/personal/emacs.cc/books"
+                              "~/.org-notes/learning-list"
+                              "~/.org-notes/GTD"
+                              ))
+  (setq notdeft-xapian-program "/usr/local/bin/notdeft-xapian")
+
+  :bind (:map notdeft-mode-map
+          ("C-q" . notdeft-quit)
+          ("C-r" . notdeft-refresh)
+          )
 )

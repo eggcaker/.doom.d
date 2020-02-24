@@ -1,0 +1,13 @@
+* My Doom Emacs configurations
+** NotDeft
+- build notdeft xapian
+#+BEGIN_SRC sh
+git clone https://github.com/hasu/notdeft.git /usr/local/opt/notdeft
+cd /usr/local/opt/notdeft/xapian
+make
+cp notdeft-xapian /usr/local/bin/
+#+END_SRC
+- setup the xapian programming in emacs side
+  #+BEGIN_SRC emacs-lisp
+(setq notdeft-xapian-program "/usr/local/bin/notdeft-xapian")
+  #+END_SRC
