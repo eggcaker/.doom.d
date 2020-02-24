@@ -3,10 +3,6 @@
 ;; theme
 (setq doom-theme 'doom-vibrant)
 
-;; fonts
-;; (setq doom-font (font-spec :family "Iosevka Term Medium" :size 18))
-;; (setq doom-variable-pitch-font (font-spec :family "Noto Sans" :weight 'semi-bold :width 'extra-condensed))
-;; (setq doom-serif-font (font-spec :family "Noto Serif" :weight 'semi-bold :width 'extra-condensed))
 
 (set-face-attribute
  'default nil
@@ -27,14 +23,30 @@
 
 ;; line spacing
 (setq display-line-numbers-type nil)
-(setq line-spacing 4)
+(setq line-spacing 6)
 
 ;; start frame size
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
 
 ;; dashboard custom
+(defun my-dashboard-banner()
+  (insert
+   (propertize
+    (+doom-dashboard--center
+     200 ;;+doom-dashboard--width
+     (concat
+      "\n- 酒喝的不少了，差不多得了"
+      "\n- 不是你的圈子不要厚着脸皮闯，你牛B了你就是圈子"
+      "\n- 身体是你唯一赚钱的本钱，身体发肤受之父母，要珍惜"
+      "\n- 不要把尖酸刻薄当成幽默，好话三冬暖才是高情商的表现"
+      "\n\n\n"
+      ))
+    'face 'doom-dashboard-menu-title)
+   ))
+
+
 (setq +doom-dashboard-functions
       '(
-        doom-dashboard-widget-banner
+        my-dashboard-banner
         doom-dashboard-widget-loaded
-        doom-dashboard-widget-footer))
+        ))

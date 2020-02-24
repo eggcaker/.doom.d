@@ -103,6 +103,7 @@
 
 
 ;; org deft
+(setenv "XAPIAN_CJK_NGRAM" "1")
 (use-package! notdeft
   :config
   (setq notdeft-extension "org")
@@ -133,3 +134,18 @@
 (use-package! org-books
   :after org
   :custom (org-books-file "~/src/personal/emacs.cc/books/index.org"))
+
+
+(use-package! org-habit)
+
+(use-package! org-super-agenda
+  :config
+  (add-hook! 'after-init-hook 'org-super-agenda-mode)
+  (setq
+   org-agenda-skip-scheduled-if-done t
+   org-agenda-skip-deadline-if-done t
+   org-agenda-include-deadlines t
+   org-agenda-include-diary nil
+   org-agenda-block-separator nil
+   org-agenda-compact-blocks t
+   org-agenda-start-with-log-mode t))
