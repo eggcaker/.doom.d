@@ -4,7 +4,28 @@
   (setq org-directory "~/.org-files/")
   (setq org-crypt-tag-matcher "secret")
   (setq org-tags-exclude-from-inheritance (quote ("secret")))
-  (setq org-crypt-key "CF0B552FF"))
+  (setq org-crypt-key "CF0B552FF")
+  (setq org-todo-keywords
+        '((sequence
+           "☞ TODO(t)"  ; A task that needs doing & is ready to do
+           "PROJ(p)"  ; An ongoing project that cannot be completed in one step
+           "⚔ INPROCESS(s)"  ; A task that is in progress
+           "⚑ WAITING(w)"  ; Something is holding up this task; or it is paused
+           "|"
+           "☟ NEXT(n)"
+           "✰ Important(i)"
+           "✔ DONE(d)"  ; Task successfully completed
+           "✘ CANCELED(c@)") ; Task was cancelled, aborted or is no longer applicable
+          (sequence
+           "✍ NOTE(N)"
+           "FIXME(f)"
+           "☕ BREAK(b)"
+           "❤ Love(l)"
+           "REVIEW(r)"
+           )) ; Task ras completed
+        )
+
+  )
 
 
 ;; latex for chinese
@@ -107,3 +128,8 @@
   :ensure nil
   :after org
   :custom (org-contacts-files '("~/.org-notes/GTD/contacts.org")))
+
+
+(use-package! org-books
+  :after org
+  :custom (org-books-file "~/src/personal/emacs.cc/books/index.org"))

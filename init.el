@@ -77,8 +77,7 @@
        ;;vterm             ; another terminals in Emacs
 
        :checkers
-       syntax              ; TODO not working with org-mode
-                           ; tasing you for every semicolon you forget
+       syntax              ; tasing you for every semicolon you forget
        ;;spell             ; tasing you for misspelling mispelling
        ;;grammar           ; tasing grammar mistake every you make
 

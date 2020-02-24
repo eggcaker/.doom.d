@@ -11,3 +11,5 @@ cp notdeft-xapian /usr/local/bin/
   #+BEGIN_SRC emacs-lisp
 (setq notdeft-xapian-program "/usr/local/bin/notdeft-xapian")
   #+END_SRC
+* tasks
+** TODO setup the anki editor feature
