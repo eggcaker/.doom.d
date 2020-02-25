@@ -35,6 +35,105 @@
   (setq org-tags-exclude-from-inheritance (quote ("secret")))
   (setq org-crypt-key "CF0B552FF")
 
+(setq org-agenda-custom-commands
+      '(("l" "My Agenda"
+         ((agenda "" ((org-agenda-span 2)
+                      (org-agenda-start-day "-1d")
+                      (org-super-agenda-groups
+                       '((:name "Today List"
+                                :time-grid t
+                                :date today
+                                :todo "INPROCESS\\|NEXT"
+                                :scheduled today
+                                :order 1)))))
+          (alltodo "" ((org-agenda-overriding-header "")
+                       (org-super-agenda-groups
+                        '((:name "Next to do"
+                                 :priority>= "B"
+                                 :order 2)
+                          (:name "Due Today"
+                                 :deadline today
+                                 :order 3)
+                          (:name "Due Soon"
+                                 :deadline future
+                                 :order 8)
+                          (:name "Overdue"
+                                 :deadline past
+                                 :order 20)
+                          (:name "Issues"
+                                 :tag "Issue"
+                                 :order 12)
+                          (:name "Projects"
+                                 :tag "Project"
+                                 :order 14)
+                          (:name "Emacs"
+                                 :tag "Emacs"
+                                 :order 13)
+                          (:name "Research"
+                                 :tag "Research"
+                                 :order 15)
+                          (:name "To read"
+                                 :tag ("BOOK" "READ")
+                                 :order 30)
+                          (:name "Waiting"
+                                 :todo "WAITING"
+                                 :order 18)
+                          (:name "trivial"
+                                 :priority<= "C"
+                                 :todo ("SOMEDAY")
+                                 :order 90)
+                          (:discard (:tag ("Chore" "Routine" "Daily")))))))))
+        ("." "Today"
+         (
+          ;; List of all TODO entries with deadline before today.
+          (tags-todo "DEADLINE<=\"<+0d>\"|SCHEDULED<=\"<+0d>\""
+                     ((org-agenda-overriding-header "OVERDUE")
+                      ;;(org-agenda-skip-function
+                      ;; '(org-agenda-skip-entry-if 'notdeadline))
+                      (org-agenda-sorting-strategy '(priority-down))))
+
+          (tags-todo "TODO={WAITING}"
+                     ((org-agenda-overriding-header "Waiting For")
+                      ;;(org-agenda-skip-function
+                      ;; '(org-agenda-skip-entry-if 'notdeadline))
+                      (org-agenda-sorting-strategy '(priority-down))))
+
+          (agenda ""
+                  ((org-agenda-entry-types '(:scheduled))
+                   (org-agenda-overriding-header "SCHEDULED")
+                   (org-agenda-skip-function
+                    '(org-agenda-skip-entry-if 'todo 'done))
+                   (org-agenda-sorting-strategy
+                    '(priority-down time-up))
+                   (org-agenda-span 'day)
+                   (org-agenda-start-on-weekday nil)
+                   (org-agenda-time-grid nil)))
+          ;; List of all TODO entries completed today.
+          (todo "TODO|DONE|CANCELLED" ; Includes repeated tasks (back in TODO).
+                ((org-agenda-overriding-header "COMPLETED TODAY")
+                 (org-agenda-skip-function
+                  '(org-agenda-skip-entry-if
+                    'notregexp
+                    (format-time-string my-org-completed-date-regexp)))
+                 (org-agenda-sorting-strategy '(priority-down)))))
+         ((org-agenda-format-date "")
+          (org-agenda-start-with-clockreport-mode nil)))
+
+        ("b" . "BOOK")
+
+        ("bb" "Search tags in todo, note, and archives"
+         search "+{:book\\|books:}")
+
+        ("bd" "BOOK TODO List"
+         search "+{^\\*+\\s-+\\(INPROCESS\\|TODO\\|WAITING\\)\\s-} +{:book\\|books:}")
+
+        ("d" "ALL DONE OF TASKS"
+         search "+{^\\*+\\s-+\\(DONE\\|CANCELED\\)\\s-}")
+
+        ("i" "ALL INPROCESS OF TASKS"
+         search "+{^\\*+\\s-+\\(INPROCESS\\)\\s-}")
+        ))
+
   (defun my-org-confirm-babel-evaluate (lang _body)
     "Return t if LANG is in whitelist."
     (not (or (string= lang "ditaa")
@@ -68,7 +167,6 @@
                 ("TODO" ("WAITING") ("CANCELLED"))
                 ("NEXT" ("WAITING") ("CANCELLED"))
                 ("DONE" ("WAITING") ("CANCELLED")))))
-
   )
 
 ;; latex for chinese
@@ -175,8 +273,6 @@
   :after org
   :custom (org-books-file "~/src/personal/emacs.cc/books/index.org"))
 
-(use-package! org-habit)
-
 (use-package! org-super-agenda
   :config
   (add-hook! 'after-init-hook 'org-super-agenda-mode)
@@ -189,104 +285,6 @@
    org-agenda-compact-blocks t
    org-agenda-start-with-log-mode t))
 
-(setq org-agenda-custom-commands
-      '(("l" "My Agenda"
-         ((agenda "" ((org-agenda-span 2)
-                      (org-agenda-start-day "-1d")
-                      (org-super-agenda-groups
-                       '((:name "Today List"
-                                :time-grid t
-                                :date today
-                                :todo "INPROCESS\\|NEXT"
-                                :scheduled today
-                                :order 1)))))
-          (alltodo "" ((org-agenda-overriding-header "")
-                       (org-super-agenda-groups
-                        '((:name "Next to do"
-                                 :priority>= "B"
-                                 :order 2)
-                          (:name "Due Today"
-                                 :deadline today
-                                 :order 3)
-                          (:name "Due Soon"
-                                 :deadline future
-                                 :order 8)
-                          (:name "Overdue"
-                                 :deadline past
-                                 :order 20)
-                          (:name "Issues"
-                                 :tag "Issue"
-                                 :order 12)
-                          (:name "Projects"
-                                 :tag "Project"
-                                 :order 14)
-                          (:name "Emacs"
-                                 :tag "Emacs"
-                                 :order 13)
-                          (:name "Research"
-                                 :tag "Research"
-                                 :order 15)
-                          (:name "To read"
-                                 :tag ("BOOK" "READ")
-                                 :order 30)
-                          (:name "Waiting"
-                                 :todo "WAITING"
-                                 :order 18)
-                          (:name "trivial"
-                                 :priority<= "C"
-                                 :todo ("SOMEDAY")
-                                 :order 90)
-                          (:discard (:tag ("Chore" "Routine" "Daily")))))))))
-        ("." "Today"
-         (
-          ;; List of all TODO entries with deadline before today.
-          (tags-todo "DEADLINE<=\"<+0d>\"|SCHEDULED<=\"<+0d>\""
-                     ((org-agenda-overriding-header "OVERDUE")
-                      ;;(org-agenda-skip-function
-                      ;; '(org-agenda-skip-entry-if 'notdeadline))
-                      (org-agenda-sorting-strategy '(priority-down))))
-
-          (tags-todo "TODO={WAITING}"
-                     ((org-agenda-overriding-header "Waiting For")
-                      ;;(org-agenda-skip-function
-                      ;; '(org-agenda-skip-entry-if 'notdeadline))
-                      (org-agenda-sorting-strategy '(priority-down))))
-
-          (agenda ""
-                  ((org-agenda-entry-types '(:scheduled))
-                   (org-agenda-overriding-header "SCHEDULED")
-                   (org-agenda-skip-function
-                    '(org-agenda-skip-entry-if 'todo 'done))
-                   (org-agenda-sorting-strategy
-                    '(priority-down time-up))
-                   (org-agenda-span 'day)
-                   (org-agenda-start-on-weekday nil)
-                   (org-agenda-time-grid nil)))
-          ;; List of all TODO entries completed today.
-          (todo "TODO|DONE|CANCELLED" ; Includes repeated tasks (back in TODO).
-                ((org-agenda-overriding-header "COMPLETED TODAY")
-                 (org-agenda-skip-function
-                  '(org-agenda-skip-entry-if
-                    'notregexp
-                    (format-time-string my-org-completed-date-regexp)))
-                 (org-agenda-sorting-strategy '(priority-down)))))
-         ((org-agenda-format-date "")
-          (org-agenda-start-with-clockreport-mode nil)))
-
-        ("b" . "BOOK")
-
-        ("bb" "Search tags in todo, note, and archives"
-         search "+{:book\\|books:}")
-
-        ("bd" "BOOK TODO List"
-         search "+{^\\*+\\s-+\\(INPROCESS\\|TODO\\|WAITING\\)\\s-} +{:book\\|books:}")
-
-        ("d" "ALL DONE OF TASKS"
-         search "+{^\\*+\\s-+\\(DONE\\|CANCELED\\)\\s-}")
-
-        ("i" "ALL INPROCESS OF TASKS"
-         search "+{^\\*+\\s-+\\(INPROCESS\\)\\s-}")
-        ))
 
 (use-package! org-starter
   :config
@@ -323,6 +321,4 @@
     ("p" org-starter-find-file:plan)
     ("b" org-starter-find-file:index)
     ("q" quit-window "quit" :color blue))
-
-
   )
