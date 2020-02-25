@@ -11,6 +11,8 @@
 
 (after! org
   (set-popup-rule! "^\\*Org Agenda" :ignore t)
+  (setq org-tags-match-list-sublevels nil)
+  (setq org-log-done  'time)
   (setq org-agenda-window-setup 'only-window)
   (setq org-clock-into-drawer t)
   (setq org-log-into-drawer t)
@@ -30,7 +32,7 @@
   (setq org-download-timestamp "%Y%m%d_%H%M%S")
   (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
   (setq org-bullets-bullet-list '("☰" "☷" "☵" "☲"  "☳" "☴"  "☶"  "☱" ))
-  (setq org-directory "~/.org-notes")
+  (setq org-directory "~/.org-notes/GTD")
   (setq org-crypt-tag-matcher "secret")
   (setq org-tags-exclude-from-inheritance (quote ("secret")))
   (setq org-crypt-key "CF0B552FF")
@@ -152,13 +154,13 @@
         (quote ((sequence "TODO(t)" "STRT(s)" "NEXT(n)" "|" "DONE(d)")
                 (sequence "WAITING(w@/!)" "|" "SOMEDAY(o)" "CANCELLED(c@/!)"))))
   (setq org-todo-keyword-faces
-        (quote (("TODO" :foreground "#cc6666" :weight bold)
-                ("STRT" :foreground "#8abeb7" :weight bold)
-                ("NEXT" :foreground "#8abe07" :weight bold)
-                ("DONE" :foreground "#b5bd68" :weight bold)
+        (quote (("TODO" :foreground "#D32F2F" :weight bold)
+                ("STRT" :foreground "#C8E6C9" :weight bold)
+                ("NEXT" :foreground "#1E88E5" :weight bold)
+                ("DONE" :foreground "#43A047" :weight bold)
                 ("WAITING" :foreground "#de935f" :weight bold)
-                ("SOMEDAY" :foreground "#b294bb" :weight bold)
-                ("CANCELLED" :foreground "#f0c674" :weight bold))))
+                ("SOMEDAY" :foreground "#78909C" :weight bold)
+                ("CANCELLED" :foreground "#BDBDBD" :weight bold))))
   ;; trigger task states
   (setq org-todo-state-tags-triggers
         (quote (("CANCELLED" ("CANCELLED" . t))
@@ -274,6 +276,7 @@
   :custom (org-books-file "~/src/personal/emacs.cc/books/index.org"))
 
 (use-package! org-super-agenda
+  :after org
   :config
   (add-hook! 'after-init-hook 'org-super-agenda-mode)
   (setq
@@ -285,8 +288,8 @@
    org-agenda-compact-blocks t
    org-agenda-start-with-log-mode t))
 
-
 (use-package! org-starter
+  :after org
   :config
   (org-starter-def "~/.org-notes"
     :files
@@ -321,4 +324,6 @@
     ("p" org-starter-find-file:plan)
     ("b" org-starter-find-file:index)
     ("q" quit-window "quit" :color blue))
+
+
   )
