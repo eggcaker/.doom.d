@@ -1,32 +1,75 @@
 ;;; ~/.doom.d/+org.el -*- lexical-binding: t; -*-
+(defconst my-org-completed-date-regexp
+  (concat "\\("
+          "CLOSED: \\[%Y-%m-%d"
+          "\\|"
+          "- State \"\\(DONE\\|CANCELLED\\)\" * from .* \\[%Y-%m-%d"
+          "\\|"
+          "- State .* ->  *\"\\(DONE\\|CANCELLED\\)\" * \\[%Y-%m-%d"
+          "\\)")
+  "Matches any completion time stamp.")
 
 (after! org
-  (setq org-directory "~/.org-files/")
+  (set-popup-rule! "^\\*Org Agenda" :ignore t)
+  (setq org-agenda-window-setup 'only-window)
+  (setq org-clock-into-drawer t)
+  (setq org-log-into-drawer t)
+  (setq org-agenda-start-day "-1d")
+  (setq org-agenda-span 2)
+  (setq org-time-clocksum-format '(:hours "%d" :require-hours t :minutes ":%02d" :require-minutes t))
+  (setq org-archive-location (concat "%s_archive_" (format-time-string "%Y" (current-time)) "::"))
+  ;; Removes clocked tasks with 0:00 duration
+  (setq org-clock-out-remove-zero-time-clocks t)
+  ;; Change task state to STARTED when clocking in
+  (setq org-clock-in-switch-to-state "INPROCESS")
+  (setq org-src-fontify-natively t
+        org-src-preserve-indentation t
+        org-src-tab-acts-natively t
+        org-src-window-setup 'current-window)
+  (setq org-agenda-time-leading-zero t)
+  (setq org-download-timestamp "%Y%m%d_%H%M%S")
+  (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
+  (setq org-bullets-bullet-list '("☰" "☷" "☵" "☲"  "☳" "☴"  "☶"  "☱" ))
+  (setq org-directory "~/.org-notes")
   (setq org-crypt-tag-matcher "secret")
   (setq org-tags-exclude-from-inheritance (quote ("secret")))
   (setq org-crypt-key "CF0B552FF")
+
+  (defun my-org-confirm-babel-evaluate (lang _body)
+    "Return t if LANG is in whitelist."
+    (not (or (string= lang "ditaa")
+             (string= lang "dot")
+             (string= lang "R")
+             (string= lang "julia")
+             (string= lang "C++")
+             (string= lang "C")
+             (string= lang "ein-R")
+             (string= lang "python")
+             (string= lang "ein-julia")
+             (string= lang "ein-python")
+             (string= lang "plantuml"))))
+
   (setq org-todo-keywords
-        '((sequence
-           "☞ TODO(t)"  ; A task that needs doing & is ready to do
-           "PROJ(p)"  ; An ongoing project that cannot be completed in one step
-           "⚔ INPROCESS(s)"  ; A task that is in progress
-           "⚑ WAITING(w)"  ; Something is holding up this task; or it is paused
-           "|"
-           "☟ NEXT(n)"
-           "✰ Important(i)"
-           "✔ DONE(d)"  ; Task successfully completed
-           "✘ CANCELED(c@)") ; Task was cancelled, aborted or is no longer applicable
-          (sequence
-           "✍ NOTE(N)"
-           "FIXME(f)"
-           "☕ BREAK(b)"
-           "❤ Love(l)"
-           "REVIEW(r)"
-           )) ; Task ras completed
-        )
+        (quote ((sequence "TODO(t)" "STRT(s)" "NEXT(n)" "|" "DONE(d)")
+                (sequence "WAITING(w@/!)" "|" "SOMEDAY(o)" "CANCELLED(c@/!)"))))
+  (setq org-todo-keyword-faces
+        (quote (("TODO" :foreground "#cc6666" :weight bold)
+                ("STRT" :foreground "#8abeb7" :weight bold)
+                ("NEXT" :foreground "#8abe07" :weight bold)
+                ("DONE" :foreground "#b5bd68" :weight bold)
+                ("WAITING" :foreground "#de935f" :weight bold)
+                ("SOMEDAY" :foreground "#b294bb" :weight bold)
+                ("CANCELLED" :foreground "#f0c674" :weight bold))))
+  ;; trigger task states
+  (setq org-todo-state-tags-triggers
+        (quote (("CANCELLED" ("CANCELLED" . t))
+                ("WAITING" ("WAITING" . t))
+                (done ("WAITING"))
+                ("TODO" ("WAITING") ("CANCELLED"))
+                ("NEXT" ("WAITING") ("CANCELLED"))
+                ("DONE" ("WAITING") ("CANCELLED")))))
 
   )
-
 
 ;; latex for chinese
 (after! latex
@@ -101,7 +144,6 @@
           "rm -fr %b.out %b.log %b.tex auto"))
   )
 
-
 ;; org deft
 (setenv "XAPIAN_CJK_NGRAM" "1")
 (use-package! notdeft
@@ -124,17 +166,14 @@
           ("C-r" . notdeft-refresh)
           ))
 
-
 (use-package! org-contacts
   :ensure nil
   :after org
   :custom (org-contacts-files '("~/.org-notes/GTD/contacts.org")))
 
-
 (use-package! org-books
   :after org
   :custom (org-books-file "~/src/personal/emacs.cc/books/index.org"))
-
 
 (use-package! org-habit)
 
@@ -149,3 +188,141 @@
    org-agenda-block-separator nil
    org-agenda-compact-blocks t
    org-agenda-start-with-log-mode t))
+
+(setq org-agenda-custom-commands
+      '(("l" "My Agenda"
+         ((agenda "" ((org-agenda-span 2)
+                      (org-agenda-start-day "-1d")
+                      (org-super-agenda-groups
+                       '((:name "Today List"
+                                :time-grid t
+                                :date today
+                                :todo "INPROCESS\\|NEXT"
+                                :scheduled today
+                                :order 1)))))
+          (alltodo "" ((org-agenda-overriding-header "")
+                       (org-super-agenda-groups
+                        '((:name "Next to do"
+                                 :priority>= "B"
+                                 :order 2)
+                          (:name "Due Today"
+                                 :deadline today
+                                 :order 3)
+                          (:name "Due Soon"
+                                 :deadline future
+                                 :order 8)
+                          (:name "Overdue"
+                                 :deadline past
+                                 :order 20)
+                          (:name "Issues"
+                                 :tag "Issue"
+                                 :order 12)
+                          (:name "Projects"
+                                 :tag "Project"
+                                 :order 14)
+                          (:name "Emacs"
+                                 :tag "Emacs"
+                                 :order 13)
+                          (:name "Research"
+                                 :tag "Research"
+                                 :order 15)
+                          (:name "To read"
+                                 :tag ("BOOK" "READ")
+                                 :order 30)
+                          (:name "Waiting"
+                                 :todo "WAITING"
+                                 :order 18)
+                          (:name "trivial"
+                                 :priority<= "C"
+                                 :todo ("SOMEDAY")
+                                 :order 90)
+                          (:discard (:tag ("Chore" "Routine" "Daily")))))))))
+        ("." "Today"
+         (
+          ;; List of all TODO entries with deadline before today.
+          (tags-todo "DEADLINE<=\"<+0d>\"|SCHEDULED<=\"<+0d>\""
+                     ((org-agenda-overriding-header "OVERDUE")
+                      ;;(org-agenda-skip-function
+                      ;; '(org-agenda-skip-entry-if 'notdeadline))
+                      (org-agenda-sorting-strategy '(priority-down))))
+
+          (tags-todo "TODO={WAITING}"
+                     ((org-agenda-overriding-header "Waiting For")
+                      ;;(org-agenda-skip-function
+                      ;; '(org-agenda-skip-entry-if 'notdeadline))
+                      (org-agenda-sorting-strategy '(priority-down))))
+
+          (agenda ""
+                  ((org-agenda-entry-types '(:scheduled))
+                   (org-agenda-overriding-header "SCHEDULED")
+                   (org-agenda-skip-function
+                    '(org-agenda-skip-entry-if 'todo 'done))
+                   (org-agenda-sorting-strategy
+                    '(priority-down time-up))
+                   (org-agenda-span 'day)
+                   (org-agenda-start-on-weekday nil)
+                   (org-agenda-time-grid nil)))
+          ;; List of all TODO entries completed today.
+          (todo "TODO|DONE|CANCELLED" ; Includes repeated tasks (back in TODO).
+                ((org-agenda-overriding-header "COMPLETED TODAY")
+                 (org-agenda-skip-function
+                  '(org-agenda-skip-entry-if
+                    'notregexp
+                    (format-time-string my-org-completed-date-regexp)))
+                 (org-agenda-sorting-strategy '(priority-down)))))
+         ((org-agenda-format-date "")
+          (org-agenda-start-with-clockreport-mode nil)))
+
+        ("b" . "BOOK")
+
+        ("bb" "Search tags in todo, note, and archives"
+         search "+{:book\\|books:}")
+
+        ("bd" "BOOK TODO List"
+         search "+{^\\*+\\s-+\\(INPROCESS\\|TODO\\|WAITING\\)\\s-} +{:book\\|books:}")
+
+        ("d" "ALL DONE OF TASKS"
+         search "+{^\\*+\\s-+\\(DONE\\|CANCELED\\)\\s-}")
+
+        ("i" "ALL INPROCESS OF TASKS"
+         search "+{^\\*+\\s-+\\(INPROCESS\\)\\s-}")
+        ))
+
+(use-package! org-starter
+  :config
+  (org-starter-def "~/.org-notes"
+    :files
+    ("GTD/gtd.org"                      :agenda t :key "g" :refile (:maxlevel . 5))
+    ("GTD/notes.org"                    :agenda t :key "n" :refile (:maxlevel .5 ))
+    ("GTD/myself.org"                   :agenda t :key "m" :refile (:maxlevel .5 ))
+    ("GTD/Habit.org"                    :agenda t :key "h" :refile (:maxlevel .5 ))
+    )
+  (org-starter-def "~/src/personal/emacs.cc"
+    :files
+    ("blog/traveling/index.org" :key "t" :refile (:maxlevel .5 ))
+    ("blog/myself/life.org"         :key "l" :refile (:maxlevel .5 ))
+    ("blog/myself/plan.org"         :key "p" :refile (:maxlevel .5 ))
+    ("books/index.org"             :agenda t :key "b" :refile (:maxlevel .5 ))
+    )
+
+  (defhydra eggcaker/hydra-org-starter nil
+    "
+  Org-starter-files
+  ^^^^------------------------------------------------
+ _g_: gtd.org     _l_: life.org    _b_: My books
+ _n_: note        _t_: traveling   _h_: Habit.org
+ _m_: myself      _p_: Plan.org
+
+  "
+    ("g" org-starter-find-file:gtd)
+    ("n" org-starter-find-file:notes)
+    ("m" org-starter-find-file:myself)
+    ("t" org-starter-find-file:traveling)
+    ("l" org-starter-find-file:life)
+    ("h" org-starter-find-file:Habit)
+    ("p" org-starter-find-file:plan)
+    ("b" org-starter-find-file:index)
+    ("q" quit-window "quit" :color blue))
+
+
+  )
