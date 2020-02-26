@@ -11,9 +11,19 @@
 
 (after! org
   (set-popup-rule! "^\\*Org Agenda" :ignore t)
+
   (setq org-refile-targets
         '((nil :maxlevel . 5)
           (org-agenda-files :maxlevel . 5)))
+  (setq org-agenda-inhibit-startup t)   ;; ~50x speedup
+  (setq org-agenda-use-tag-inheritance nil) ;; 3-4x speedup
+  (setq org-agenda-window-setup 'current-window)
+  (setq org-ctrl-k-protect-subtree t)                                   ;; Protect my subtrees!
+  (setq org-blank-before-new-entry
+        '((heading . nil) (plain-list-item . nil)))                       ;; Insert empty line before new headlines, but not before list item
+  (setq org-footnote-auto-adjust t)                                     ;; Automatically renumber footnotes
+  (setq org-goto-auto-isearch nil)
+  (setq org-refile-allow-creating-parent-nodes t)
   (setq org-tags-match-list-sublevels nil)
   (setq org-log-done  'time)
   (setq org-agenda-window-setup 'only-window)
@@ -40,104 +50,89 @@
   (setq org-tags-exclude-from-inheritance (quote ("secret")))
   (setq org-crypt-key "CF0B552FF")
 
-(setq org-agenda-custom-commands
-      '(("l" "My Agenda"
-         ((agenda "" ((org-agenda-span 2)
-                      (org-agenda-start-day "-1d")
-                      (org-super-agenda-groups
-                       '((:name "Today List"
-                                :time-grid t
-                                :date today
-                                :todo "INPROCESS\\|NEXT"
-                                :scheduled today
-                                :order 1)))))
-          (alltodo "" ((org-agenda-overriding-header "")
-                       (org-super-agenda-groups
-                        '((:name "Next to do"
-                                 :priority>= "B"
-                                 :order 2)
-                          (:name "Due Today"
-                                 :deadline today
-                                 :order 3)
-                          (:name "Due Soon"
-                                 :deadline future
-                                 :order 8)
-                          (:name "Overdue"
-                                 :deadline past
-                                 :order 20)
-                          (:name "Issues"
-                                 :tag "Issue"
-                                 :order 12)
-                          (:name "Projects"
-                                 :tag "Project"
-                                 :order 14)
-                          (:name "Emacs"
-                                 :tag "Emacs"
-                                 :order 13)
-                          (:name "Research"
-                                 :tag "Research"
-                                 :order 15)
-                          (:name "To read"
-                                 :tag ("BOOK" "READ")
-                                 :order 30)
-                          (:name "Waiting"
-                                 :todo "WAITING"
-                                 :order 18)
-                          (:name "trivial"
-                                 :priority<= "C"
-                                 :todo ("SOMEDAY")
-                                 :order 90)
-                          (:discard (:tag ("Chore" "Routine" "Daily")))))))))
-        ("." "Today"
-         (
-          ;; List of all TODO entries with deadline before today.
-          (tags-todo "DEADLINE<=\"<+0d>\"|SCHEDULED<=\"<+0d>\""
-                     ((org-agenda-overriding-header "OVERDUE")
-                      ;;(org-agenda-skip-function
-                      ;; '(org-agenda-skip-entry-if 'notdeadline))
-                      (org-agenda-sorting-strategy '(priority-down))))
+  (setq org-capture-templates
+        '(("t" "Todo item " entry
+           (file+headline "~/.org-notes/GTD/inbox.org" "Inbox")
+           "* TODO  %?\n%i\n%a" :prepend t)
+          ("n" "Notes" entry
+           (file+headline "~/.org-notes/GTD/notes.org" "Inbox")
+           "* %u %?\n%i\n%a" :prepend t)
+          ("c" "Contacts" entry (file "~/.org-notes/GTD/contacts.org")
+           "* %(org-contacts-template-name)
+:PROPERTIES:
+:EMAIL: %(org-contacts-template-email)
+:PHONE:
+:WECHAT:
+:BIRTHDAY:
+:NOTE:
+:END:")))
 
-          (tags-todo "TODO={WAITING}"
-                     ((org-agenda-overriding-header "Waiting For")
-                      ;;(org-agenda-skip-function
-                      ;; '(org-agenda-skip-entry-if 'notdeadline))
-                      (org-agenda-sorting-strategy '(priority-down))))
+  (setq org-agenda-custom-commands
+        '(("." "My Agenda"
+           ((agenda "" ((org-agenda-span 1)
+                        (org-agenda-start-day "1d")
+                        (org-super-agenda-groups
+                         '((:name "Today List"
+                                  :time-grid t
+                                  :date today
+                                  :todo "INPROCESS"
+                                  :scheduled today
+                                  :order 1)))))
+            (alltodo "" ((org-agenda-overriding-header "")
+                         (org-super-agenda-groups
+                          '(
 
-          (agenda ""
-                  ((org-agenda-entry-types '(:scheduled))
-                   (org-agenda-overriding-header "SCHEDULED")
-                   (org-agenda-skip-function
-                    '(org-agenda-skip-entry-if 'todo 'done))
-                   (org-agenda-sorting-strategy
-                    '(priority-down time-up))
-                   (org-agenda-span 'day)
-                   (org-agenda-start-on-weekday nil)
-                   (org-agenda-time-grid nil)))
-          ;; List of all TODO entries completed today.
-          (todo "TODO|DONE|CANCELLED" ; Includes repeated tasks (back in TODO).
-                ((org-agenda-overriding-header "COMPLETED TODAY")
-                 (org-agenda-skip-function
-                  '(org-agenda-skip-entry-if
-                    'notregexp
-                    (format-time-string my-org-completed-date-regexp)))
-                 (org-agenda-sorting-strategy '(priority-down)))))
-         ((org-agenda-format-date "")
-          (org-agenda-start-with-clockreport-mode nil)))
+                            (:name "Next to do"
+                                   :priority>= "B"
+                                   :order 2)
+                            (:name "Due Today"
+                                   :deadline today
+                                   :order 3)
+                            (:name "Due Soon"
+                                   :deadline future
+                                   :order 8)
+                            (:name "Overdue"
+                                   :deadline past
+                                   :order 20)
+                            (:name "Tasks to Refile"
+                                   :category "Inbox"
+                                   :order 12)
+                            (:name "Emacs"
+                                   :category "Emacs"
+                                   :tag "Emacs"
+                                   :order 13)
+                            (:name "Japanese"
+                                   :category "Japanese"
+                                   :tag "Japanese"
+                                   :order 13)
+                            (:name "Research"
+                                   :tag "Research"
+                                   :order 15)
+                            (:name "To read"
+                                   :tag ("BOOK" "READ")
+                                   :order 30)
+                            (:name "Waiting"
+                                   :todo "WAITING"
+                                   :order 18)
+                            (:name "trivial"
+                                   :priority<= "C"
+                                   :todo ("SOMEDAY")
+                                   :order 90)
+                            (:discard (:tag ("Chore" "Routine" "Daily")))))))))
+          ("b" . "BOOK")
 
-        ("b" . "BOOK")
+          ("bb" "Search tags in todo, note, and archives"
+           search "+{:book\\|books:}")
 
-        ("bb" "Search tags in todo, note, and archives"
-         search "+{:book\\|books:}")
+          ("bd" "BOOK TODO List"
+           search "+{^\\*+\\s-+\\(INPROCESS\\|TODO\\|WAITING\\)\\s-} +{:book\\|books:}")
 
-        ("bd" "BOOK TODO List"
-         search "+{^\\*+\\s-+\\(INPROCESS\\|TODO\\|WAITING\\)\\s-} +{:book\\|books:}")
+          ("d" "ALL DONE OF TASKS"
+           search "+{^\\*+\\s-+\\(DONE\\|CANCELED\\)\\s-}")
 
-        ("d" "ALL DONE OF TASKS"
-         search "+{^\\*+\\s-+\\(DONE\\|CANCELED\\)\\s-}")
-
-        ("i" "ALL INPROCESS OF TASKS"
-         search "+{^\\*+\\s-+\\(INPROCESS\\)\\s-}")
-        ))
+          ("i" "ALL INPROCESS OF TASKS"
+           search "+{^\\*+\\s-+\\(INPROCESS\\)\\s-}")
+          ))
 
   (defun my-org-confirm-babel-evaluate (lang _body)
     "Return t if LANG is in whitelist."
@@ -146,6 +141,7 @@
              (string= lang "R")
              (string= lang "julia")
              (string= lang "C++")
+             (string= lang "emacs-lisp")
              (string= lang "C")
              (string= lang "ein-R")
              (string= lang "python")
@@ -154,11 +150,11 @@
              (string= lang "plantuml"))))
 
   (setq org-todo-keywords
-        (quote ((sequence "TODO(t)" "STRT(s)" "NEXT(n)" "|" "DONE(d)")
+        (quote ((sequence "TODO(t)" "INPROCESS(i)" "NEXT(n)" "|" "DONE(d)")
                 (sequence "WAITING(w@/!)" "|" "SOMEDAY(o)" "CANCELLED(c@/!)"))))
   (setq org-todo-keyword-faces
         (quote (("TODO" :foreground "#D32F2F" :weight bold)
-                ("STRT" :foreground "#C8E6C9" :weight bold)
+                ("INPROCESS" :foreground "#C8E6C9" :weight bold)
                 ("NEXT" :foreground "#1E88E5" :weight bold)
                 ("DONE" :foreground "#43A047" :weight bold)
                 ("WAITING" :foreground "#de935f" :weight bold)
@@ -278,9 +274,9 @@
   :after org
   :custom (org-books-file "~/src/personal/emacs.cc/books/index.org"))
 
-(use-package! org-super-agenda
-  :after org
-  :config
+(use-package!  org-super-agenda
+  :after org-agenda
+  :init
   (add-hook! 'after-init-hook 'org-super-agenda-mode)
   (setq
    org-agenda-skip-scheduled-if-done t
@@ -289,7 +285,11 @@
    org-agenda-include-diary nil
    org-agenda-block-separator nil
    org-agenda-compact-blocks t
-   org-agenda-start-with-log-mode t))
+   org-agenda-start-with-log-mode t)
+  :config
+  (org-super-agenda-mode)
+  ;;  (require 'org-habit)
+  )
 
 (use-package! org-starter
   :after org
@@ -297,13 +297,15 @@
   (org-starter-def "~/.org-notes"
     :files
     ("GTD/gtd.org"                      :agenda t :key "g" :refile (:maxlevel . 5))
+    ("GTD/inbox.org"                    :agenda t :key "i" :refile (:maxlevel . 5))
     ("GTD/notes.org"                    :agenda t :key "n" :refile (:maxlevel . 5 ))
+    ("GTD/contacts.org"                 :agenda t :key "c" :refile (:maxlevel . 5 ))
     ("GTD/myself.org"                   :agenda t :key "m" :refile (:maxlevel . 5 ))
     ("GTD/Habit.org"                    :agenda t :key "h" :refile (:maxlevel . 5 ))
     )
   (org-starter-def "~/src/personal/emacs.cc"
     :files
-    ("blog/traveling/index.org" :key "t" :refile (:maxlevel . 5 ))
+    ("blog/traveling/index.org"     :key "t" :refile (:maxlevel . 5 ))
     ("blog/myself/life.org"         :key "l" :refile (:maxlevel . 5 ))
     ("blog/myself/plan.org"         :key "p" :refile (:maxlevel . 5 ))
     ("books/index.org"             :agenda t :key "b" :refile (:maxlevel . 5 ))
@@ -313,11 +315,12 @@
     "
   Org-starter-files
   ^^^^------------------------------------------------
- _g_: gtd.org     _l_: life.org    _b_: My books
+ _c_: contacts    _g_: gtd.org     _l_: life.org
  _n_: note        _t_: traveling   _h_: Habit.org
- _m_: myself      _p_: Plan.org
+ _m_: myself      _p_: Plan.org    _b_: My books
 
   "
+    ("c" org-starter-find-file:contacts)
     ("g" org-starter-find-file:gtd)
     ("n" org-starter-find-file:notes)
     ("m" org-starter-find-file:myself)
@@ -326,7 +329,4 @@
     ("h" org-starter-find-file:Habit)
     ("p" org-starter-find-file:plan)
     ("b" org-starter-find-file:index)
-    ("q" quit-window "quit" :color blue))
-
-
-  )
+    ("q" quit-window "quit" :color blue)))
