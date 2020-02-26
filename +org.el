@@ -11,6 +11,9 @@
 
 (after! org
   (set-popup-rule! "^\\*Org Agenda" :ignore t)
+  (setq org-refile-targets
+        '((nil :maxlevel . 5)
+          (org-agenda-files :maxlevel . 5)))
   (setq org-tags-match-list-sublevels nil)
   (setq org-log-done  'time)
   (setq org-agenda-window-setup 'only-window)
@@ -294,16 +297,16 @@
   (org-starter-def "~/.org-notes"
     :files
     ("GTD/gtd.org"                      :agenda t :key "g" :refile (:maxlevel . 5))
-    ("GTD/notes.org"                    :agenda t :key "n" :refile (:maxlevel .5 ))
-    ("GTD/myself.org"                   :agenda t :key "m" :refile (:maxlevel .5 ))
-    ("GTD/Habit.org"                    :agenda t :key "h" :refile (:maxlevel .5 ))
+    ("GTD/notes.org"                    :agenda t :key "n" :refile (:maxlevel . 5 ))
+    ("GTD/myself.org"                   :agenda t :key "m" :refile (:maxlevel . 5 ))
+    ("GTD/Habit.org"                    :agenda t :key "h" :refile (:maxlevel . 5 ))
     )
   (org-starter-def "~/src/personal/emacs.cc"
     :files
-    ("blog/traveling/index.org" :key "t" :refile (:maxlevel .5 ))
-    ("blog/myself/life.org"         :key "l" :refile (:maxlevel .5 ))
-    ("blog/myself/plan.org"         :key "p" :refile (:maxlevel .5 ))
-    ("books/index.org"             :agenda t :key "b" :refile (:maxlevel .5 ))
+    ("blog/traveling/index.org" :key "t" :refile (:maxlevel . 5 ))
+    ("blog/myself/life.org"         :key "l" :refile (:maxlevel . 5 ))
+    ("blog/myself/plan.org"         :key "p" :refile (:maxlevel . 5 ))
+    ("books/index.org"             :agenda t :key "b" :refile (:maxlevel . 5 ))
     )
 
   (defhydra eggcaker/hydra-org-starter nil
