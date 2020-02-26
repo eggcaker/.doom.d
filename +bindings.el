@@ -25,6 +25,9 @@
        :desc "Commit" :n "," #'with-editor-finish
        :desc "Abort commit" :n "k" #'with-editor-cancel)))
 
+ (:leader
+   (:prefix "o"
+     :desc "Open org file" :n "o" #'eggcaker/hydra-org-starter/body))
 
  (:leader
    (:prefix "f"

@@ -7,3 +7,4 @@
 ;;(package! org-wild-notifier)
 (package! org-books :recipe (:host github :repo "lepisma/org-books"))
 (package! notdeft :recipe (:host github :repo "eggcaker/notdeft"))
+(disable-packages! evil-snipe)
