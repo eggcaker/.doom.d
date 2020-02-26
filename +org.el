@@ -81,7 +81,6 @@
             (alltodo "" ((org-agenda-overriding-header "")
                          (org-super-agenda-groups
                           '(
-
                             (:name "Next to do"
                                    :priority>= "B"
                                    :order 2)
@@ -97,14 +96,14 @@
                             (:name "Tasks to Refile"
                                    :category "Inbox"
                                    :order 12)
-                            (:name "Emacs"
+                            (:name "Play Emacs 4 Fun"
                                    :category "Emacs"
                                    :tag "Emacs"
                                    :order 13)
-                            (:name "Japanese"
+                            (:name "Japanese Learning"
                                    :category "Japanese"
                                    :tag "Japanese"
-                                   :order 13)
+                                   :order 14)
                             (:name "Research"
                                    :tag "Research"
                                    :order 15)
