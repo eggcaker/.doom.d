@@ -37,6 +37,7 @@
 
  (:leader
    (:prefix "o"
+     :desc "Goto any Heading of opening org" :n "j" #'counsel-org-goto-all
      :desc "Open org file" :n "o" #'eggcaker/hydra-org-starter/body))
 
  (:leader
