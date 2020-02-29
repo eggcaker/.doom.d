@@ -9,6 +9,8 @@
           "\\)")
   "Matches any completion time stamp.")
 
+(setq org-my-anki-file "~/.org-notes/anki/anki.org")
+
 (after! org
   (set-popup-rule! "^\\*Org Agenda" :ignore t)
 
@@ -53,7 +55,15 @@
   (setq org-capture-templates
         '(("t" "Todo item " entry
            (file+headline "~/.org-notes/GTD/inbox.org" "Inbox")
-           "* TODO  %?\n%i\n%a" :prepend t)
+           "* TODO %?\n%i\n%a" :prepend t)
+          ("a" "Anki basic"
+                entry
+                (file+headline org-my-anki-file "Dispatch Shelf")
+                "* %<%H:%M>   %^g\n:PROPERTIES:\n:ANKI_NOTE_TYPE: Basic\n:ANKI_DECK: Mega\n:END:\n** Front\n%?\n** Back\n%x\n")
+          ("A" "Anki cloze"
+           entry
+           (file+headline org-my-anki-file "Dispatch Shelf")
+           "* %<%H:%M>   %^g\n:PROPERTIES:\n:ANKI_NOTE_TYPE: Cloze\n:ANKI_DECK: Mega\n:END:\n** Text\n%x\n** Extra\n")
           ("n" "Notes" entry
            (file+headline "~/.org-notes/GTD/notes.org" "Inbox")
            "* %u %?\n%i\n%a" :prepend t)
@@ -81,7 +91,9 @@
             (alltodo "" ((org-agenda-overriding-header "")
                          (org-super-agenda-groups
                           '(
-
+                            (:name "Tasks to Refile"
+                                   :category "Inbox"
+                                   :order 1)
                             (:name "Next to do"
                                    :priority>= "B"
                                    :order 2)
@@ -94,20 +106,22 @@
                             (:name "Overdue"
                                    :deadline past
                                    :order 20)
-                            (:name "Tasks to Refile"
-                                   :category "Inbox"
-                                   :order 12)
-                            (:name "Emacs"
+                            (:name "Have fun With Emacs"
                                    :category "Emacs"
                                    :tag "Emacs"
                                    :order 13)
-                            (:name "Japanese"
+                            (:name "Japanese Learning"
                                    :category "Japanese"
                                    :tag "Japanese"
-                                   :order 13)
+                                   :order 14)
                             (:name "Research"
+                                   :category "Research"
                                    :tag "Research"
                                    :order 15)
+                            (:name "NixOS to Research"
+                                   :category "NixOS"
+                                   :tag "NixOS"
+                                   :order 16)
                             (:name "To read"
                                    :tag ("BOOK" "READ")
                                    :order 30)
@@ -249,21 +263,25 @@
   :config
   (setq notdeft-extension "org")
   ;;(setq notdeft-secondary-extensions '("md" "org" "scrbl"))
-  (setq notdeft-directories '("~/src/personal/emacs.cc/blog/myself"
-                              "~/src/personal/emacs.cc/blog/life-thing"
-                              "~/src/personal/emacs.cc/blog/life-thing"
-                              "~/src/personal/emacs.cc/blog/traveling"
-                              "~/src/personal/emacs.cc/blog/agenda"
-                              "~/src/personal/emacs.cc/books"
+  (setq notdeft-directories '(
+                              "~/src/personal/emacs.cc/content-org"
                               "~/.org-notes/learning-list"
                               "~/.org-notes/GTD"
                               ))
   (setq notdeft-xapian-program "/usr/local/bin/notdeft-xapian")
 
+ (when (featurep! :editor evil)
+    ;; Neither wl-folder-mode or wl-summary-mode are correctly defined as major
+    ;; modes, so `evil-set-initial-state' won't work here.
+    (add-hook! '(notdeft-mode-hook)
+               #'evil-emacs-state))
+
   :bind (:map notdeft-mode-map
           ("C-q" . notdeft-quit)
           ("C-r" . notdeft-refresh)
-          ))
+          )
+
+  )
 
 (use-package! org-contacts
   :ensure nil
@@ -296,37 +314,76 @@
   :config
   (org-starter-def "~/.org-notes"
     :files
-    ("GTD/gtd.org"                      :agenda t :key "g" :refile (:maxlevel . 5))
-    ("GTD/inbox.org"                    :agenda t :key "i" :refile (:maxlevel . 5))
-    ("GTD/notes.org"                    :agenda t :key "n" :refile (:maxlevel . 5 ))
-    ("GTD/contacts.org"                 :agenda t :key "c" :refile (:maxlevel . 5 ))
-    ("GTD/myself.org"                   :agenda t :key "m" :refile (:maxlevel . 5 ))
-    ("GTD/Habit.org"                    :agenda t :key "h" :refile (:maxlevel . 5 ))
+    ("GTD/gtd.org"             :agenda t :key "g" :refile (:maxlevel . 5 ))
+    ("GTD/inbox.org"           :agenda t :key "i" :refile (:maxlevel . 5 ))
+    ("GTD/notes.org"           :agenda t :key "n" :refile (:maxlevel . 5 ))
+    ("GTD/contacts.org"        :agenda t :key "c" :refile (:maxlevel . 5 ))
+    ("GTD/myself.org"          :agenda t :key "m" :refile (:maxlevel . 5 ))
+    ("GTD/Habit.org"           :agenda t :key "h" :refile (:maxlevel . 5 ))
     )
   (org-starter-def "~/src/personal/emacs.cc"
     :files
-    ("blog/traveling/index.org"     :key "t" :refile (:maxlevel . 5 ))
-    ("blog/myself/life.org"         :key "l" :refile (:maxlevel . 5 ))
-    ("blog/myself/plan.org"         :key "p" :refile (:maxlevel . 5 ))
-    ("books/index.org"             :agenda t :key "b" :refile (:maxlevel . 5 ))
-    )
+    ("content-org/blog.org"    :agenda t :key "b" :refile (:maxlevel . 5 ))
+    ("content-org/pages.org"   :agenda t :key "p" :refile (:maxlevel . 5 )))
 
   (defhydra eggcaker/hydra-org-starter nil
     "
   Org-starter-files
   ^^^^------------------------------------------------
- _c_: contacts    _g_: gtd.org     _l_: life.org
- _n_: note        _t_: traveling   _h_: Habit.org
- _m_: myself      _p_: Plan.org    _b_: My books
+ _b_: blogs       _c_: contacts    _g_: gtd.org
+ _n_: note        _h_: Habit.org   _i_: inbox
+ _m_: myself      _p_: pages.org
 
   "
+    ("b" org-starter-find-file:blog)
     ("c" org-starter-find-file:contacts)
     ("g" org-starter-find-file:gtd)
-    ("n" org-starter-find-file:notes)
-    ("m" org-starter-find-file:myself)
-    ("t" org-starter-find-file:traveling)
-    ("l" org-starter-find-file:life)
     ("h" org-starter-find-file:Habit)
-    ("p" org-starter-find-file:plan)
-    ("b" org-starter-find-file:index)
-    ("q" quit-window "quit" :color blue)))
+    ("i" org-starter-find-file:inbox)
+    ("m" org-starter-find-file:myself)
+    ("n" org-starter-find-file:notes)
+    ("p" org-starter-find-file:pages)
+    ("q" quit-window "quit" :color blue))
+  )
+
+
+(use-package! anki-editor
+  :after org
+  :bind (:map org-mode-map
+          ("<f12>" . anki-editor-cloze-region-auto-incr)
+          ("<f11>" . anki-editor-cloze-region-dont-incr)
+          ("<f10>" . anki-editor-reset-cloze-number)
+          ("<f9>"  . anki-editor-push-tree))
+  :hook (org-capture-after-finalize . anki-editor-reset-cloze-number) ; Reset cloze-number after each capture.
+
+  :config
+
+  (setq anki-editor-create-decks t ;; Allow anki-editor to create a new deck if it doesn't exist
+        anki-editor-org-tags-as-anki-tags t)
+
+  (defun anki-editor-cloze-region-auto-incr (&optional arg)
+    "Cloze region without hint and increase card number."
+    (interactive)
+    (anki-editor-cloze-region my-anki-editor-cloze-number "")
+    (setq my-anki-editor-cloze-number (1+ my-anki-editor-cloze-number))
+    (forward-sexp))
+  (defun anki-editor-cloze-region-dont-incr (&optional arg)
+    "Cloze region without hint using the previous card number."
+    (interactive)
+    (anki-editor-cloze-region (1- my-anki-editor-cloze-number) "")
+    (forward-sexp))
+  (defun anki-editor-reset-cloze-number (&optional arg)
+    "Reset cloze number to ARG or 1"
+    (interactive)
+    (setq my-anki-editor-cloze-number (or arg 1)))
+  (defun anki-editor-push-tree ()
+    "Push all notes under a tree."
+    (interactive)
+    (anki-editor-push-notes '(4))
+    (anki-editor-reset-cloze-number))
+  ;; Initialize
+  (anki-editor-reset-cloze-number)
+
+
+  ;; Org-capture templates
+  )

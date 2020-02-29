@@ -29,21 +29,27 @@
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
 
 ;; dashboard custom
-(defun my-dashboard-banner()
-  (insert
+(defun banner-line(msg)
+ (insert
    (propertize
     (+doom-dashboard--center
-     200 ;;+doom-dashboard--width
-     (concat
-      "\n- 酒喝的不少了，差不多得了"
-      "\n- 不是你的圈子不要厚着脸皮闯，你牛B了你就是圈子"
-      "\n- 身体是你唯一赚钱的本钱，身体发肤受之父母，要珍惜"
-      "\n- 不要把尖酸刻薄当成幽默，好话三冬暖才是高情商的表现"
-      "\n\n\n"
-      ))
+     +doom-dashboard--width
+     msg
+     )
     'face 'doom-dashboard-menu-title)
-   ))
+   "\n"
+   )
+  )
 
+(defun my-dashboard-banner()
+  (banner-line "平生不修善果，")
+  (banner-line "只愛殺人放火。")
+  (banner-line "忽地頓開金繩，")
+  (banner-line "這裏扯斷玉鎖。")
+  (banner-line "   咦！錢塘江上潮信來，")
+  (banner-line "  今日方知我是我。")
+  ;;(banner-line "         ---魯智深")
+   )
 
 (setq +doom-dashboard-functions
       '(

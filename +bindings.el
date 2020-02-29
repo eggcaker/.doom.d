@@ -17,6 +17,16 @@
  :n "," (λ! (push (cons t ?m) unread-command-events)
             (push (cons t 32) unread-command-events))
 
+ (:after org-super-agenda
+   (:map org-super-agenda-header-map
+     :desc "Previous line" "k" #'evil-previous-line
+     :desc "Next line" "j" #'evil-next-line))
+
+ (:after org-agenda
+   (:map org-agenda-mode-map
+     :desc "Previous line" "k" #'evil-previous-line
+     :desc "next line" "j" #'evil-next-line))
+
  (:after magit
    (:map with-editor-mode-map
      :desc "Previous comment" "C-k" #'log-edit-previous-comment
@@ -27,6 +37,7 @@
 
  (:leader
    (:prefix "o"
+     :desc "Goto any Heading of opening org" :n "j" #'counsel-org-goto-all
      :desc "Open org file" :n "o" #'eggcaker/hydra-org-starter/body))
 
  (:leader
