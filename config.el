@@ -10,3 +10,4 @@
 (load! "+mail")
 (load! "+org")
 (load! "+bindings")
+(load! "+anki")
