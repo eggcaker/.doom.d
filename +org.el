@@ -67,7 +67,8 @@
           ("n" "Notes" entry
            (file+headline "~/.org-notes/GTD/notes.org" "Inbox")
            "* %u %?\n%i\n%a" :prepend t)
-          ("c" "Contacts" entry (file "~/.org-notes/GTD/contacts.org")
+          ("c" "Contacts"
+           entry (file "~/.org-notes/GTD/contacts.org")
            "* %(org-contacts-template-name)
 :PROPERTIES:
 :EMAIL: %(org-contacts-template-email)
@@ -75,7 +76,11 @@
 :WECHAT:
 :BIRTHDAY:
 :NOTE:
-:END:")))
+:END:")
+          ("w" "Web site" entry
+           (file "~/.org-notes/websites/bookmarks.org")
+           "* %a :website:\n\n%U %?\n\n%:initial")
+          ))
 
   (setq org-agenda-custom-commands
         '(("." "My Agenda"
@@ -156,6 +161,7 @@
              (string= lang "julia")
              (string= lang "C++")
              (string= lang "emacs-lisp")
+             (string= lang "elisp")
              (string= lang "C")
              (string= lang "ein-R")
              (string= lang "python")
@@ -304,7 +310,7 @@
    org-agenda-start-with-log-mode t)
   :config
   (org-super-agenda-mode)
-  ;;  (require 'org-habit))
+  )
 
 (use-package! org-starter
   :after org
@@ -313,15 +319,15 @@
     :files
     ("GTD/gtd.org"             :agenda t :key "g" :refile (:maxlevel . 5 ))
     ("GTD/inbox.org"           :agenda t :key "i" :refile (:maxlevel . 5 ))
-    ("GTD/notes.org"           :agenda t :key "n" :refile (:maxlevel . 5 ))
-    ("GTD/contacts.org"        :agenda t :key "c" :refile (:maxlevel . 5 ))
-    ("GTD/myself.org"          :agenda t :key "m" :refile (:maxlevel . 5 ))
+    ("GTD/notes.org"           :agenda nil :key "n" :refile (:maxlevel . 5 ))
+    ("GTD/contacts.org"        :agenda nil :key "c" :refile (:maxlevel . 5 ))
+    ("GTD/myself.org"          :agenda nil :key "m" :refile (:maxlevel . 5 ))
     ("GTD/Habit.org"           :agenda t :key "h" :refile (:maxlevel . 5 ))
     )
   (org-starter-def "~/src/personal/emacs.cc"
     :files
-    ("content-org/blog.org"    :agenda t :key "b" :refile (:maxlevel . 5 ))
-    ("content-org/pages.org"   :agenda t :key "p" :refile (:maxlevel . 5 )))
+    ("content-org/blog.org"    :agenda nil :key "b" :refile (:maxlevel . 5 ))
+    ("content-org/pages.org"   :agenda nil :key "p" :refile (:maxlevel . 5 )))
 
   (defhydra eggcaker/hydra-org-starter nil
     "
@@ -343,3 +349,6 @@
     ("q" quit-window "quit" :color blue))
   )
 
+(use-package! org-protocol-capture-html
+  :after org
+  )
