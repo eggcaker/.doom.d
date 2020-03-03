@@ -5,9 +5,9 @@
 
 ;; Modules
 (load! "+defaults")
+(load! "+bindings")
 (load! "+ui")
 (load! "+git")
 (load! "+mail")
 (load! "+org")
-(load! "+bindings")
 (load! "+anki")

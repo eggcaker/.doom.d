@@ -56,4 +56,4 @@
      :desc "Window enlargen" :n "O" #'doom/window-enlargen)
    ))
 
-(map! :leader :desc "M-x"  :n  "SPC"  #'execute-extended-command)
+(map! :leader :desc "M-x" "SPC"  #'execute-extended-command)
