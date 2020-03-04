@@ -39,7 +39,8 @@
     'face 'doom-dashboard-menu-title)
    "\n"
    )
-  )
+ )
+
 
 (defun my-dashboard-banner()
   (banner-line "平生不修善果，")
@@ -56,3 +57,5 @@
         my-dashboard-banner
         doom-dashboard-widget-loaded
         ))
+
+(setq-hook! '+doom-dashboard-mode-hook evil-normal-state-cursor (list nil))

@@ -67,7 +67,8 @@
           ("n" "Notes" entry
            (file+headline "~/.org-notes/GTD/notes.org" "Inbox")
            "* %u %?\n%i\n%a" :prepend t)
-          ("c" "Contacts" entry (file "~/.org-notes/GTD/contacts.org")
+          ("c" "Contacts"
+           entry (file "~/.org-notes/GTD/contacts.org")
            "* %(org-contacts-template-name)
 :PROPERTIES:
 :EMAIL: %(org-contacts-template-email)
@@ -75,7 +76,11 @@
 :WECHAT:
 :BIRTHDAY:
 :NOTE:
-:END:")))
+:END:")
+          ("w" "Web site" entry
+           (file "~/.org-notes/websites/bookmarks.org")
+           "* %a :website:\n\n%U %?\n\n%:initial")
+          ))
 
   (setq org-agenda-custom-commands
         '(("." "My Agenda"
@@ -156,6 +161,7 @@
              (string= lang "julia")
              (string= lang "C++")
              (string= lang "emacs-lisp")
+             (string= lang "elisp")
              (string= lang "C")
              (string= lang "ein-R")
              (string= lang "python")
@@ -279,9 +285,7 @@
   :bind (:map notdeft-mode-map
           ("C-q" . notdeft-quit)
           ("C-r" . notdeft-refresh)
-          )
-
-  )
+          ))
 
 (use-package! org-contacts
   :ensure nil
@@ -306,7 +310,6 @@
    org-agenda-start-with-log-mode t)
   :config
   (org-super-agenda-mode)
-  ;;  (require 'org-habit)
   )
 
 (use-package! org-starter
@@ -316,15 +319,15 @@
     :files
     ("GTD/gtd.org"             :agenda t :key "g" :refile (:maxlevel . 5 ))
     ("GTD/inbox.org"           :agenda t :key "i" :refile (:maxlevel . 5 ))
-    ("GTD/notes.org"           :agenda t :key "n" :refile (:maxlevel . 5 ))
-    ("GTD/contacts.org"        :agenda t :key "c" :refile (:maxlevel . 5 ))
-    ("GTD/myself.org"          :agenda t :key "m" :refile (:maxlevel . 5 ))
+    ("GTD/notes.org"           :agenda nil :key "n" :refile (:maxlevel . 5 ))
+    ("GTD/contacts.org"        :agenda nil :key "c" :refile (:maxlevel . 5 ))
+    ("GTD/myself.org"          :agenda nil :key "m" :refile (:maxlevel . 5 ))
     ("GTD/Habit.org"           :agenda t :key "h" :refile (:maxlevel . 5 ))
     )
   (org-starter-def "~/src/personal/emacs.cc"
     :files
-    ("content-org/blog.org"    :agenda t :key "b" :refile (:maxlevel . 5 ))
-    ("content-org/pages.org"   :agenda t :key "p" :refile (:maxlevel . 5 )))
+    ("content-org/blog.org"    :agenda nil :key "b" :refile (:maxlevel . 5 ))
+    ("content-org/pages.org"   :agenda nil :key "p" :refile (:maxlevel . 5 )))
 
   (defhydra eggcaker/hydra-org-starter nil
     "
@@ -346,44 +349,6 @@
     ("q" quit-window "quit" :color blue))
   )
 
-
-(use-package! anki-editor
+(use-package! org-protocol-capture-html
   :after org
-  :bind (:map org-mode-map
-          ("<f12>" . anki-editor-cloze-region-auto-incr)
-          ("<f11>" . anki-editor-cloze-region-dont-incr)
-          ("<f10>" . anki-editor-reset-cloze-number)
-          ("<f9>"  . anki-editor-push-tree))
-  :hook (org-capture-after-finalize . anki-editor-reset-cloze-number) ; Reset cloze-number after each capture.
-
-  :config
-
-  (setq anki-editor-create-decks t ;; Allow anki-editor to create a new deck if it doesn't exist
-        anki-editor-org-tags-as-anki-tags t)
-
-  (defun anki-editor-cloze-region-auto-incr (&optional arg)
-    "Cloze region without hint and increase card number."
-    (interactive)
-    (anki-editor-cloze-region my-anki-editor-cloze-number "")
-    (setq my-anki-editor-cloze-number (1+ my-anki-editor-cloze-number))
-    (forward-sexp))
-  (defun anki-editor-cloze-region-dont-incr (&optional arg)
-    "Cloze region without hint using the previous card number."
-    (interactive)
-    (anki-editor-cloze-region (1- my-anki-editor-cloze-number) "")
-    (forward-sexp))
-  (defun anki-editor-reset-cloze-number (&optional arg)
-    "Reset cloze number to ARG or 1"
-    (interactive)
-    (setq my-anki-editor-cloze-number (or arg 1)))
-  (defun anki-editor-push-tree ()
-    "Push all notes under a tree."
-    (interactive)
-    (anki-editor-push-notes '(4))
-    (anki-editor-reset-cloze-number))
-  ;; Initialize
-  (anki-editor-reset-cloze-number)
-
-
-  ;; Org-capture templates
   )

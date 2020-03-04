@@ -8,3 +8,5 @@
  x-select-enable-primary t
  select-enable-primary  t
  )
+
+(setq rmh-elfeed-org-files (list "~/.org-notes/elfeed.org"))
