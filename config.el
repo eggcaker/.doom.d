@@ -11,3 +11,4 @@
 (load! "+mail")
 (load! "+org")
 (load! "+anki")
+(load! "+chat")
