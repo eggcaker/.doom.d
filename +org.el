@@ -352,3 +352,15 @@
 (use-package! org-protocol-capture-html
   :after org
   )
+
+(use-package! ox-latex
+  :after org
+  :config
+   (add-to-list 'org-latex-classes
+                '("report"
+                  "\\documentclass{report}"
+                  ("\\chapter{%s}" . "\\chapter*{%s}")
+                  ("\\section{%s}" . "\\section*{%s}")
+                  ("\\subsection{%s}" . "\\subsection*{%s}")
+                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}"))))
+
