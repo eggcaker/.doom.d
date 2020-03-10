@@ -353,14 +353,8 @@
   :after org
   )
 
-(use-package! ox-latex
-  :after org
-  :config
-   (add-to-list 'org-latex-classes
-                '("report"
-                  "\\documentclass{report}"
-                  ("\\chapter{%s}" . "\\chapter*{%s}")
-                  ("\\section{%s}" . "\\section*{%s}")
-                  ("\\subsection{%s}" . "\\subsection*{%s}")
-                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}"))))
-
+(add-hook! LaTeX-mode
+  (add-to-list TeX-command-list '("LuaLaTeX" "%`lualatex%(mode)%' %t" TeX-run-TeX nil t))
+  (setq TeX-command-default "LuaLaTeX"
+        TeX-save-query nil
+        TeX-show-compilation t))

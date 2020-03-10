@@ -11,3 +11,21 @@
  )
 
 (setq rmh-elfeed-org-files (list "~/.org-notes/elfeed.org"))
+
+(add-hook! LaTeX-mode
+  (add-to-list TeX-command-list '("XeLaTeX" "%`xelatex%(mode)%' %t" TeX-run-TeX nil t))
+  (setq TeX-command-default "XeLaTeX"
+        TeX-save-query nil
+        TeX-show-compilation t))
+
+;; OR
+
+(setq-default TeX-engine 'luatex TeX-PDF-mode t)
+
+(setq org-latex-classes
+      '("report"
+        "\\documentclass{report}"
+        ("\\chapter{%s}" . "\\chapter*{%s}")
+        ("\\section{%s}" . "\\section*{%s}")
+        ("\\subsection{%s}" . "\\subsection*{%s}")
+        ("\\subsubsection{%s}" . "\\subsubsection*{%s}")))
