@@ -13,14 +13,15 @@
 (setq rmh-elfeed-org-files (list "~/.org-notes/elfeed.org"))
 
 (add-hook! LaTeX-mode
-  (add-to-list TeX-command-list '("XeLaTeX" "%`xelatex%(mode)%' %t" TeX-run-TeX nil t))
-  (setq TeX-command-default "XeLaTeX"
+  (add-to-list 'TeX-command-list '("XeLaTeX" "%`xelatex%(mode)%' %t" TeX-run-TeX nil t))
+  )
+
+(setq-default TeX-command-default "XeLaTeX"
         TeX-save-query nil
-        TeX-show-compilation t))
+        TeX-show-compilation t)
+(setq-default latex-run-command "xelatex")
 
-;; OR
-
-(setq-default TeX-engine 'luatex TeX-PDF-mode t)
+(setq-default TeX-engine 'xetex)
 
 (setq org-latex-classes
       '("report"
