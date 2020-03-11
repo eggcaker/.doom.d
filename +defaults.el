@@ -13,7 +13,7 @@
 (setq rmh-elfeed-org-files (list "~/.org-notes/elfeed.org"))
 
 (add-hook! LaTeX-mode
-  (add-to-list 'TeX-command-list '("XeLaTeX" "%`xelatex%(mode)%' %t" TeX-run-TeX nil t))
+  (add-to-list 'TeX-command-list '("XeLaTeX" "%`xelatex --synctex=1%(mode)%' %t" TeX-run-TeX nil t))
   )
 
 (setq-default TeX-command-default "XeLaTeX"
