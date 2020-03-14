@@ -10,3 +10,5 @@
 (package! anki-editor)
 (disable-packages! evil-snipe)
 (package! org-protocol-capture-html :recipe (:host github :repo "alphapapa/org-protocol-capture-html"))
+
+(package! ox-novel :recipe (:host github :repo "eggcaker/ox-novel"))

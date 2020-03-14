@@ -358,3 +358,6 @@
   (setq TeX-command-default "LuaLaTeX"
         TeX-save-query nil
         TeX-show-compilation t))
+(use-package! ox-novel
+  :after org
+  )
