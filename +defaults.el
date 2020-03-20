@@ -1,8 +1,6 @@
 ;;; ~/.doom.d/+defaults.el -*- lexical-binding: t; -*-
 
 
-(setq-default which-key-idle-delay 0.1)
-(setq-default which-key-idle-secondary-delay 0.2)
 (setq org-tags-column -116)
 (setq doom-scratch-initial-major-mode 'emacs-lisp-mode)
 (setq
@@ -16,12 +14,15 @@
   (add-to-list 'TeX-command-list '("XeLaTeX" "%`xelatex --synctex=1%(mode)%' %t" TeX-run-TeX nil t))
   )
 
-(setq-default TeX-command-default "XeLaTeX"
-        TeX-save-query nil
-        TeX-show-compilation t)
-(setq-default latex-run-command "xelatex")
-
-(setq-default TeX-engine 'xetex)
+(setq-default
+ which-key-idle-delay 0.1
+ which-key-idle-secondary-delay 0.2
+ TeX-command-default "XeLaTeX"
+ TeX-save-query nil
+ TeX-show-compilation t
+ latex-run-command "xelatex"
+ pdf-latex-command "xelatex"
+ TeX-engine 'xetex)
 
 (setq org-latex-classes
       '("report"
