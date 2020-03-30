@@ -12,3 +12,4 @@
 (package! org-protocol-capture-html :recipe (:host github :repo "alphapapa/org-protocol-capture-html"))
 
 (package! ox-novel :recipe (:host github :repo "eggcaker/ox-novel"))
+(package! latex-pretty-symbol :recipe (:host github :repo "epa095/latex-pretty-symbols.el"))

@@ -12,3 +12,4 @@
 (load! "+org")
 (load! "+anki")
 (load! "+chat")
+(load! "+tex")

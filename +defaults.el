@@ -10,24 +10,6 @@
 
 (setq rmh-elfeed-org-files (list "~/.org-notes/elfeed.org"))
 
-(add-hook! LaTeX-mode
-  (add-to-list 'TeX-command-list '("XeLaTeX" "%`xelatex --synctex=1%(mode)%' %t" TeX-run-TeX nil t))
-  )
-
-(setq-default
+(setq
  which-key-idle-delay 0.1
- which-key-idle-secondary-delay 0.2
- TeX-command-default "XeLaTeX"
- TeX-save-query nil
- TeX-show-compilation t
- latex-run-command "xelatex"
- pdf-latex-command "xelatex"
- TeX-engine 'xetex)
-
-(setq org-latex-classes
-      '("report"
-        "\\documentclass{report}"
-        ("\\chapter{%s}" . "\\chapter*{%s}")
-        ("\\section{%s}" . "\\section*{%s}")
-        ("\\subsection{%s}" . "\\subsection*{%s}")
-        ("\\subsubsection{%s}" . "\\subsubsection*{%s}")))
+ which-key-idle-secondary-delay 0.2)
