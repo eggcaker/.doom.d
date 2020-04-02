@@ -17,7 +17,7 @@
         pyim-title "ㄓ"
         pyim-default-scheme 'rime
         pyim-page-length 7
-        pyim-page-tooltip 'proframe)
+        pyim-page-tooltip 'popup) ;;proframe)
 
   :config
   (setq-default pyim-english-input-switch-functions

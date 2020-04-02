@@ -168,5 +168,5 @@
        (default +bindings +smartparens)
 
        :private
-       (my-chinese +rime)
+       ;;(my-chinese +rime)
        )
