@@ -164,9 +164,9 @@
        ;;twitter           ; twitter client https://twitter.com/vnought
 
        :config
-       ;;literate
+      ;;literate
        (default +bindings +smartparens)
 
        :private
-       ;;(my-chinese +rime)
+       (my-chinese +rime)
        )
