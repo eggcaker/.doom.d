@@ -1,3 +1,4 @@
 [submodule "extensions/liberime"]
 	path = extensions/liberime
 	url = git://github.com/eggcaker/liberime.git
+

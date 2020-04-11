@@ -30,6 +30,14 @@
                 '(pyim-probe-punctuation-line-beginning
                   pyim-probe-punctuation-after-punctuation)))
 
+;; HACK: make the load liberime only once
+(setq lexical-binding t)
+(defun gen-once (fn)
+  (let ((done nil))
+    (lambda () (if (not done)
+                   (progn (setq done t)
+                          (funcall fn))))))
+
 (use-package! liberime
   :when (featurep! +rime)
   :load-path (lambda()(expand-file-name "liberime" +my-ext-dir))
@@ -38,7 +46,7 @@
   (rime_share_data_dir "/Library/Input Methods/Squirrel.app/Contents/SharedSupport/")
   (rime_user_data_dir (expand-file-name "rime" +my-ext-dir))
   :init
-  (module-load (expand-file-name "liberime.so" +my-ext-dir))
+ (get-once  (module-load (expand-file-name "liberime.so" +my-ext-dir)))
   :config
   (liberime-start rime_share_data_dir rime_user_data_dir)
   (liberime-select-schema "luna_pinyin_simp"))
