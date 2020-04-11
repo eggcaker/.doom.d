@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: japanese word
+# key: word
+# condition: t
+# --
+\word{${1:word-from}[${2:}]}{$3}$0
