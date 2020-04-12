@@ -1,6 +1,8 @@
 ;;; ~/.doom.d/+tex.el -*- lexical-binding: t; -*-
 
 
+(setq +latex-viewers '(skim))
+
 (setq-default
  TeX-command-default "XeLaTeX"
  TeX-save-query nil
@@ -17,7 +19,6 @@
   :after latex
   )
 
-(setq +latex-viewers '(skim))
 (after! latex
   ;; turn of auto-fill-mode (better way?)
   (add-hook 'latex-mode-hook 'turn-off-auto-fill)

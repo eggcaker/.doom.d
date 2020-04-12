@@ -13,3 +13,8 @@
 (setq
  which-key-idle-delay 0.1
  which-key-idle-secondary-delay 0.2)
+
+(setq-default abbrev-mode t)
+
+(setq 
+  abbrev-file-name "~/.doom.d/abbrev_defs.el")
