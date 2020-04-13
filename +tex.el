@@ -19,6 +19,8 @@
   :after latex
   )
 
+
+
 (after! latex
   ;; turn of auto-fill-mode (better way?)
   (add-hook 'latex-mode-hook 'turn-off-auto-fill)
@@ -47,25 +49,6 @@
        ;; :desc "TeX-comment-or-uncomment-region"     :n ";" #'TeX-comment-or-uncomment-region      ;; C-c ; or C-c :
        ))))
 
-(after! bibtex
-  ;; bibliography
-  ;; (setq reftex-default-bibliography "~/Zotero/bib.bib")
-  ;; Optionally specifying a location for the corresponding PDFs
-  ;; (setq bibtex-completion-library-path (list "/your/bib/pdfs"))
-  ;; dialect, bibtex vs biblatex
-  (setq bibtex-dialect 'BibTeX))
-
-(after! LaTeX-mode
-  (set-company-backend!
-    'latex-mode
-    'company-auctex
-    'company-reftex
-    'company-capf
-    'company-lsp
-    'company-files
-    'company-dabbrev
-    'company-keywords
-    'company-yasnippet))
 
 (setq org-latex-classes
       '("report"
