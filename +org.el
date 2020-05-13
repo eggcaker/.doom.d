@@ -361,3 +361,10 @@
 (use-package! ox-novel
   :after org
   )
+
+
+(use-package! org-fragtog
+  :after org
+  :config
+  (add-hook 'org-mode-hook 'org-fragtog-mode)
+  )

@@ -13,3 +13,4 @@
 
 (package! ox-novel :recipe (:host github :repo "eggcaker/ox-novel"))
 (package! latex-pretty-symbol :recipe (:host github :repo "epa095/latex-pretty-symbols.el"))
+(package! org-fragtog :recipe (:host github :repo "io12/org-fragtog"))
