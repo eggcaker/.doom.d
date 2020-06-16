@@ -12,7 +12,6 @@
        ivy               ; a search engine for love and life
 
        :ui
-       zen
        deft              ; notational velocity for Emacs
        doom              ; what makes DOOM look the way it does
        doom-dashboard    ; a nifty splash screen for Emacs
@@ -93,6 +92,10 @@
        ;;upload            ; map local to remote projects via ssh/ftp
 
        :lang
+       (dart
+        +lsp
+        +flutter)
+
        ;;agda              ; types of types of types of types...
        ;;assembly          ; assembly for fun or debugging
        ;;cc                ; C/C++/Obj-C madness
