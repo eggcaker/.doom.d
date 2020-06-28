@@ -362,6 +362,11 @@
   :after org
   )
 
+(use-package! tiny
+  :after org
+  :config
+  (tiny-setup-default)
+  )
 
 (use-package! org-fragtog
   :after org
