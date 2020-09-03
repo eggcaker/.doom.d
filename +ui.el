@@ -23,7 +23,7 @@
 
 ;; line spacing
 (setq display-line-numbers-type nil)
-(setq line-spacing 6)
+(setq line-spacing 10)
 
 ;; start frame size
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))

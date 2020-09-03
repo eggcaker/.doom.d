@@ -18,3 +18,7 @@
 
 (setq 
   abbrev-file-name "~/.doom.d/abbrev_defs.el")
+
+
+
+(add-to-list 'exec-path "/usr/local/bin")
