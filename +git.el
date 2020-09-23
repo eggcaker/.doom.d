@@ -4,6 +4,7 @@
 (setq magit-repository-directories '(
         ("~/.doom.d/" . 0)
         ("~/.org-notes/" . 0)
+        ("~/src/personal/xiaobing/src/Commercial.CSSDK/partner/common/demo")
         ("~/src/personal/emacs.cc/" .0 )
         ))
 
