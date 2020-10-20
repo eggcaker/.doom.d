@@ -162,6 +162,7 @@
              (string= lang "C++")
              (string= lang "emacs-lisp")
              (string= lang "elisp")
+             (string= lang "restclient")
              (string= lang "C")
              (string= lang "ein-R")
              (string= lang "python")
