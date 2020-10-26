@@ -166,6 +166,7 @@
              (string= lang "C")
              (string= lang "ein-R")
              (string= lang "python")
+             (string= lang "ipython")
              (string= lang "ein-julia")
              (string= lang "ein-python")
              (string= lang "plantuml"))))
