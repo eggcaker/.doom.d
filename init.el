@@ -92,6 +92,7 @@
        ;;upload            ; map local to remote projects via ssh/ftp
 
        :lang
+       (json +lsp)
        (dart
         +lsp
         +flutter)
