@@ -15,10 +15,4 @@
 (load! "+chat")
 (load! "+tex")
 (load! "+python")
-
-
-
-
-
-  (with-eval-after-load 'lsp-mode
-    (define-key lsp-mode-map (kbd "TAB") #'company-indent-or-complete-common))
+(load! "+k8s")

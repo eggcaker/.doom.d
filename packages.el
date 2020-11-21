@@ -15,3 +15,7 @@
 (package! latex-pretty-symbol :recipe (:host github :repo "epa095/latex-pretty-symbols.el"))
 (package! org-fragtog :recipe (:host github :repo "io12/org-fragtog"))
 (package! tiny :recipe (:host github :repo "abo-abo/tiny"))
+
+
+(package! kubel)
+(package! kubel-evil)
