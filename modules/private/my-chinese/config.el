@@ -45,7 +45,7 @@
   :config
   (setq liberime-is-loaded t)
   (liberime-start rime_share_data_dir rime_user_data_dir)
-  (liberime-select-schema "luna_pinyin_simp"))
+  (liberime-select-schema "wubi_pinyin"));;  luna_pinyin_simp"))
 
 (use-package! pangu-spacing
   :hook (text-mode . pangu-spacing-mode)
