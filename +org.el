@@ -47,14 +47,14 @@
   (setq org-download-timestamp "%Y%m%d_%H%M%S")
   (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
   (setq org-bullets-bullet-list '("☰" "☷" "☵" "☲"  "☳" "☴"  "☶"  "☱" ))
-  (setq org-directory "~/Dropbox/org-notes/GTD")
+  (setq org-directory "~/.org-notes/GTD")
   (setq org-crypt-tag-matcher "secret")
   (setq org-tags-exclude-from-inheritance (quote ("secret")))
   (setq org-crypt-key "CF0B552FF")
 
   (setq org-capture-templates
         '(("t" "Todo item " entry
-           (file+headline "~/Dropbox/org-notes/GTD/inbox.org" "Inbox")
+           (file+headline "~/.org-notes/GTD/inbox.org" "Inbox")
            "* TODO %?\n%i\n%a" :prepend t)
           ("a" "Anki basic"
                 entry
@@ -64,11 +64,8 @@
            entry
            (file+headline org-my-anki-file "Dispatch Shelf")
            "* %<%H:%M>   %^g\n:PROPERTIES:\n:ANKI_NOTE_TYPE: Cloze\n:ANKI_DECK: Mega\n:END:\n** Text\n%x\n** Extra\n")
-          ("n" "Notes" entry
-           (file+headline "~/Dropbox/org-notes/GTD/notes.org" "Inbox")
-           "* %u %?\n%i\n%a" :prepend t)
           ("c" "Contacts"
-           entry (file "~/Dropbox/org-notes/GTD/contacts.org")
+           entry (file "~/.org-notes/GTD/contacts.org")
            "* %(org-contacts-template-name)
 :PROPERTIES:
 :EMAIL: %(org-contacts-template-email)
@@ -198,8 +195,8 @@
   ;;(setq notdeft-secondary-extensions '("md" "org" "scrbl"))
   (setq notdeft-directories '(
                               "~/src/personal/emacs.cc/content-org"
-                              "~/Dropbox/org-notes/learning-list"
-                              "~/Dropbox/org-notes/GTD"
+                              "~/.org-notes/learning-list"
+                              "~/.org-notes/GTD"
                               ))
   (setq notdeft-xapian-program "/usr/local/bin/notdeft-xapian")
 
@@ -217,7 +214,7 @@
 (use-package! org-contacts
   :ensure nil
   :after org
-  :custom (org-contacts-files '("~/Dropbox/org-notes/GTD/contacts.org")))
+  :custom (org-contacts-files '("~/.org-notes/GTD/contacts.org")))
 
 (use-package! org-books
   :after org
@@ -242,13 +239,11 @@
 (use-package! org-starter
   :after org
   :config
-  (org-starter-def "~/Dropbox/org-notes"
+  (org-starter-def "~/.org-notes"
     :files
     ("GTD/gtd.org"             :agenda t :key "g" :refile (:maxlevel . 5 ))
     ("GTD/inbox.org"           :agenda t :key "i" :refile (:maxlevel . 5 ))
-    ("GTD/notes.org"           :agenda nil :key "n" :refile (:maxlevel . 5 ))
     ("GTD/contacts.org"        :agenda nil :key "c" :refile (:maxlevel . 5 ))
-    ("GTD/myself.org"          :agenda nil :key "m" :refile (:maxlevel . 5 ))
     ("GTD/Habit.org"           :agenda t :key "h" :refile (:maxlevel . 5 ))
     )
   (org-starter-def "~/src/personal/emacs.cc"
@@ -261,17 +256,14 @@
   Org-starter-files
   ^^^^------------------------------------------------
  _b_: blogs       _c_: contacts    _g_: gtd.org
- _n_: note        _h_: Habit.org   _i_: inbox
- _m_: myself      _p_: pages.org
-
+ _h_: Habit.org   _i_: inbox
+ _p_: pages.org
   "
     ("b" org-starter-find-file:blog)
     ("c" org-starter-find-file:contacts)
     ("g" org-starter-find-file:gtd)
     ("h" org-starter-find-file:Habit)
     ("i" org-starter-find-file:inbox)
-    ("m" org-starter-find-file:myself)
-    ("n" org-starter-find-file:notes)
     ("p" org-starter-find-file:pages)
     ("q" quit-window "quit" :color blue))
   )
