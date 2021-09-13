@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: Api.TraceError
+# uuid: ce6e7196-dd87-4fdb-8666-9bdb93137900
+# key: el
+# condition: t
+# --
+Api.TraceError("EC: $1")
+$0

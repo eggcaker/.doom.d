@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: workflow-post-action
+# uuid: workflow-post-action-template
+# key: pa
+# condition: t
+# --
+<?xml version="1.0"?>
+<PostAction>
+  <Reference>`(file-name-base (file-name-base (file-name-nondirectory (buffer-file-name))))`.py</Reference>
+  <Type>Python</Type>
+</PostAction>

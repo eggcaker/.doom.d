@@ -1,0 +1,38 @@
+# -*- mode: snippet -*-
+# name: Service class
+# uuid: workflow-service-class
+# key: service
+# condition: t
+# --
+# -*- coding:utf-8 -*-
+import clr
+import json
+import re
+import sys
+import traceback
+
+reload(sys)
+sys.setdefaultencoding('utf-8')
+
+
+def Reply(request):
+    response = Api.CreateInstantChitChatResponse()
+    response.ReplyText = '${1:message}'
+    return response
+
+
+##########################################
+#unit test
+##########################################
+import unittest
+
+
+class UnitTest(unittest.TestCase):
+    def setUp(self):
+        pass
+
+if __name__ == '__main__':
+    __VNEXT__ = 1
+    execfile('XiaoiceUnitTest.py')
+    unittest.main()
+$0

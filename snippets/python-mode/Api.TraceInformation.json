@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: Api.TraceInformation
+# uuid: ce6e7196-dd87-4fdb-8666-9bdb93137992
+# key: ilj
+# condition: t
+# --
+Api.TraceInformation("EC: ${1:sub_cate}: {}".format(json.dumps($2,ensure_ascii=False)))
+$0

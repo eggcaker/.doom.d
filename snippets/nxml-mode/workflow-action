@@ -1,0 +1,20 @@
+# -*- mode: snippet -*-
+# name: workflow-action
+# uuid: workflow-action-file-template
+# key: action
+# condition: t
+# --
+<?xml version="1.0"?>
+<Action>
+  <Reference>`(file-name-base (file-name-base (file-name-nondirectory (buffer-file-name))))`.py</Reference>
+  <Type>Python</Type>
+  <IsAsync>true</IsAsync>
+  ${1:<Dependencies>
+    <Action>${2:CoreChatQU}</Action>
+  </Dependencies>}
+  ${3:<Filters>
+    <Filter>
+      <Name>${4:XiaoiceIntentRequestAlteration}</Name>
+    </Filter>
+  </Filters>}
+</Action>

@@ -79,7 +79,7 @@
        ;;gist              ; interacting with github gists
        (lookup           ; helps you navigate your code and documentation
         +docsets)        ; ...or in Dash docsets locally
-       lsp
+       (lsp)
        ;;macos             ; MacOS-specific commands
        magit             ; a git porcelain for Emacs
        ;;make              ; run make tasks from Emacs
@@ -92,10 +92,12 @@
        ;;upload            ; map local to remote projects via ssh/ftp
 
        :lang
-       (json +lsp)
-       (dart
-        +lsp
-        +flutter)
+       (sh +lsp
+           +powershell)
+       json
+       ;; (dart
+        ;; +lsp
+        ;; +flutter)
 
        yaml
        ;;agda              ; types of types of types of types...
@@ -105,7 +107,7 @@
        ;;common-lisp       ; if you've seen one lisp, you've seen them all
        ;;coq               ; proofs-as-programs
        ;;crystal           ; ruby at the speed of c
-       csharp            ; unity, .NET, and mono shenanigans
+       ;; csharp            ; unity, .NET, and mono shenanigans
        data              ; config/data formats
        ;;elixir            ; erlang done right
        ;;elm               ; care for a cup of TEA?
@@ -115,25 +117,25 @@
        ;;faust             ; dsp, but you get to keep your soul
        ;;fsharp           ; ML stands for Microsoft's Language
        ;;fstar             ; (dependent) types and (monadic) effects and Z3
-       ;;go                ; the hipster dialect
+       go                ; the hipster dialect
        ;;(haskell +dante)  ; a language that's lazier than I am
        ;;hy                ; readability of scheme w/ speed of python
        ;;idris             ;
        ;;(java +meghanada) ; the poster child for carpal tunnel syndrome
-       (javascript +lsp)     ; all(hope(abandon(ye(who(enter(here))))))
+       ;;(javascript +lsp)     ; all(hope(abandon(ye(who(enter(here))))))
        ;;julia             ; a better, faster MATLAB
-       kotlin            ; a better, slicker Java(Script)
-       (latex +latexmk +cdlatex +skim)            ; writing papers in Emacs has never been so fun
+       ;; kotlin            ; a better, slicker Java(Script)
+       ;; (latex +latexmk +cdlatex +skim)            ; writing papers in Emacs has never been so fun
        ;;lean
        ;;factor
        ;;ledger            ; an accounting system in Emacs
-       lua               ; one-based indices? one-based indices
+       ;; lua               ; one-based indices? one-based indices
        markdown          ; writing docs for people to ignore
        ;;nim               ; python + lisp at the speed of c
        ;;nix               ; I hereby declare "nix geht mehr!"
        ;;ocaml             ; an objective camel
+       ;;
        (org              ; organize your plain life in plain text
-        +dragndrop       ; drag & drop files/images into org buffers
         +hugo            ; use Emacs for hugo blogging
         +gnuplot
         +jupyter        ; ipython/jupyter support for babel
@@ -150,24 +152,24 @@
        rest              ; Emacs as a REST client
        ;;rst               ; ReST in peace
        ;;ruby              ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
-       ;;rust              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
+       ;;(rust +lsp)              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
        ;;scala             ; java, but good
        ;;scheme            ; a fully conniving family of lisps
-       (sh +fish)               ; she sells {ba,z,fi}sh shells on the C xor
+       ;;(sh +fish)               ; she sells {ba,z,fi}sh shells on the C xor
        ;;solidity          ; do you need a blockchain? No.
        ;;swift             ; who asked for emoji variables?
        ;;terra             ; Earth and Moon in alignment for performance.
        ;;web               ; the tubes
 
        :email
-       (mu4e +gmail)
+       ;; (mu4e +gmail)
        ;;notmuch
        ;;(wanderlust +gmail)
 
        :app
        ;;calendar
-       irc               ; how neckbeards socialize
-       (rss +org)        ; emacs as an RSS reader
+       ;; irc               ; how neckbeards socialize
+       ;; (rss +org)        ; emacs as an RSS reader
        ;;twitter           ; twitter client https://twitter.com/vnought
 
        :config
@@ -175,5 +177,5 @@
        (default +bindings +smartparens)
 
        :private
-       (my-chinese +rime)
+       ;;(my-chinese +rime)
        )

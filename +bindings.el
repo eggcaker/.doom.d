@@ -59,3 +59,4 @@
 (map! :leader :desc "M-x" "SPC"  #'execute-extended-command)
 
 (map! "C-M-s-i" 'pyim-convert-code-at-point)
+(map! "C-;" 'tiny-expand)

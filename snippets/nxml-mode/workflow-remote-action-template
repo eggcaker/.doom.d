@@ -1,0 +1,15 @@
+# -*- mode: snippet -*-
+# name: workflow-remote-action-template
+# uuid: workflow-remote-action-template
+# key: raction
+# condition: t
+# --
+<?xml version="1.0"?>
+<Action>
+  <Type>Remote</Type>
+  <IsAsync>true</IsAsync>
+  <WorkflowType>Text</WorkflowType>
+  <Arguments>
+    <Argument Key="RemoteUrl">${1:https://nlp.azure-api.cn/gome/xiaoice}</Argument>
+  </Arguments>
+</Action>

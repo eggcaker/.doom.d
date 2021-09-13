@@ -4,22 +4,24 @@
 (setq doom-theme 'doom-vibrant)
 
 
-(set-face-attribute
- 'default nil
- :font (font-spec :name "-*-Fantasque Sans Mono-normal-normal-normal-*-*-*-*-*-m-0-iso10646-1"
-                  :weight 'normal
-                  :slant 'normal
-                  :size 20.0))
-(dolist (charset '(kana han symbol cjk-misc bopomofo))
-  (set-fontset-font
-   (frame-parameter nil 'font)
-   charset
-   (font-spec :name "-*-STFangsong-normal-normal-normal-*-*-*-*-*-p-0-iso10646-1"
-              :weight 'normal
-              :slant 'normal
-              :size 19.6)))
+;; (set-face-attribute
+;;  'default nil
+;;  :font (font-spec :name "-*-Fantasque Sans Mono-normal-normal-normal-*-*-*-*-*-m-0-iso10646-1"
+;;                   :weight 'normal
+;;                   :slant 'normal
+;;                   :size 20.0))
+;; (dolist (charset '(kana han symbol cjk-misc bopomofo))
+;;   (set-fontset-font
+;;    (frame-parameter nil 'font)
+;;    charset
+;;    (font-spec :name "-*-STFangsong-normal-normal-normal-*-*-*-*-*-p-0-iso10646-1"
+;;               :weight 'normal
+;;               :slant 'normal
+;;               :size 19.6)))
 
-(setq ispell-program-name "/usr/local/bin/ispell")
+;; (setq ispell-program-name "/usr/local/bin/ispell")
+;;
+(setq doom-font  "FantasqueSansMono NF")
 
 ;; line spacing
 (setq display-line-numbers-type nil)

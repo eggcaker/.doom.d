@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: service
+# uuid: 5d8736eb-341a-48d5-98fd-5d1cd494ed01
+# key:
+# condition: t
+# --
+<Service>
+  <Reference>`(buffer-file-name)`.py</Reference>
+  <Type>Python</Type>
+</Service>

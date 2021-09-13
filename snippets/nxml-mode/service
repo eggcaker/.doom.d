@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name: service
+# uuid: 926afcbc-df6c-4e12-a6fd-c3f0f22ca7a5
+# key: service
+# condition: t
+# --
+<?xml version="1.0"?>
+<Service>
+  <Reference>`(file-name-base (file-name-base (file-name-nondirectory (buffer-file-name))))`.py</Reference>
+  <Type>Python</Type>
+  <Dependencies>
+    ${1:<Action>`(file-name-base (file-name-base (file-name-nondirectory (buffer-file-name))))`</Action>}
+  </Dependencies>
+</Service>
