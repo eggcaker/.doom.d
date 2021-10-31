@@ -9,7 +9,7 @@
  )
 
 (setq rmh-elfeed-org-files (list "~/.org-notes/elfeed.org"))
-
+(setq org-roam-directory "D:/Work/OneDrive - xiaobing.ai/Documents/MyNotes")
 (setq
  which-key-idle-delay 0.1
  which-key-idle-secondary-delay 0.2)

@@ -2,11 +2,9 @@
 
 (setq magit-todos-depth 2)
 (setq magit-repository-directories '(
-        ("~/.doom.d/" . 0)
-        ("~/.org-notes/" . 0)
-        ("~/src/personal/xiaobing/src/Commercial.CSSDK/partner/common/demo")
-        ("~/src/personal/emacs.cc/" .0 )
-        ))
+                                     ("D:\\Work\\Xiaobing" . 0)
+                                     ("D:\\Work\\AICreation\\BusinessSolution-FE-AST" . 0)
+                                     ))
 
 (set-popup-rule! "^\\*Magit Repositories" :size 35 :side 'bottom :select nil :ttl 0)
 

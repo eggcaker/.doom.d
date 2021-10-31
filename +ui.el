@@ -3,29 +3,22 @@
 ;; theme
 (setq doom-theme 'doom-vibrant)
 
+(setq doom-font (font-spec :family "MesloLGM NF" :size 26 :weight 'normal :width 'normal)
+      doom-variable-pitch-font (font-spec :family "MesloLGM NF" :size 26 :weight 'normal :width 'normal)
+      doom-big-font (font-spec :family "MesloLGM NF" :size 40))
 
-;; (set-face-attribute
-;;  'default nil
-;;  :font (font-spec :name "-*-Fantasque Sans Mono-normal-normal-normal-*-*-*-*-*-m-0-iso10646-1"
-;;                   :weight 'normal
-;;                   :slant 'normal
-;;                   :size 20.0))
-;; (dolist (charset '(kana han symbol cjk-misc bopomofo))
-;;   (set-fontset-font
-;;    (frame-parameter nil 'font)
-;;    charset
-;;    (font-spec :name "-*-STFangsong-normal-normal-normal-*-*-*-*-*-p-0-iso10646-1"
-;;               :weight 'normal
-;;               :slant 'normal
-;;               :size 19.6)))
-
-;; (setq ispell-program-name "/usr/local/bin/ispell")
-;;
-(setq doom-font  "FantasqueSansMono NF")
+(dolist (charset '(kana han symbol cjk-misc bopomofo))
+   (set-fontset-font
+    (frame-parameter nil 'font)
+    charset
+    (font-spec :name "-*-STFangsong-normal-normal-normal-*-*-*-*-*-p-0-iso10646-1"
+               :weight 'normal
+               :slant 'normal
+               :size 32)))
 
 ;; line spacing
 (setq display-line-numbers-type nil)
-(setq line-spacing 10)
+(setq-default line-spacing 4)
 
 ;; start frame size
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
@@ -61,3 +54,6 @@
         ))
 
 (setq-hook! '+doom-dashboard-mode-hook evil-normal-state-cursor (list nil))
+
+
+(doom/set-frame-opacity 93)
