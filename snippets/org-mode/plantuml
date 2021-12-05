@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: plantuml
+# uuid:
+# key: <uml
+# --
+
+#+begin_src plantuml :file ${1:./images/${2:hello_plantuml}.png} :results ${3:output} :cmdline -charset UTF-8 :exports ${4:both} -Shandwritten=true
+$0
+#+end_src

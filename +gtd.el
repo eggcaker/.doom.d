@@ -1,5 +1,12 @@
 ;;; +gtd.el -*- lexical-binding: t; -*-
 
+;; (use-package org-trello
+;;   :after org
+;;   :init
+;;   (add-hook! 'after-init-hook 'org-trello-mode)
+;;   )
+
+
 (use-package org-super-agenda
   :after org-agenda
   :init
@@ -43,6 +50,9 @@
                                    :category "Xiaobing"
                                    :tag "Xiaobing"
                                    :order 10)
+                            (:name "Backend"
+                                   :and (:todo "Doing" :category "Trello")
+                                   :order 11)
                             (:name "Emacs"
                                    :category "Emacs"
                                    :tag "Emacs"
@@ -58,13 +68,15 @@
                                    :priority<= "C"
                                    :todo ("SOMEDAY")
                                    :order 90)
-                            (:discard (:tag ("Chore" "Routine" "Daily")))))))))))
+                            (:discard (:anything t)
+                             )
+
+                            ))))))))
 
 
   :config
   (org-super-agenda-mode)
   )
-
 
 
 
@@ -87,4 +99,69 @@
   (setq org-latex-listings 'minted)
   (add-to-list 'org-latex-packages-alist '("" "minted"))
   (add-to-list 'org-latex-packages-alist '("margin=1cm" "geometry" nil))
+  )
+
+
+(use-package org-bullets
+  :hook (org-mode . org-bullets-mode)
+  :custom
+  (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
+
+
+(after! org
+    (setq org-ellipsis " ▾")
+
+    (defun cc/org-font-setup ()
+      ;; Replace list hyphen with dot
+      (font-lock-add-keywords 'org-mode
+                              '(("^ *\\([-]\\) "
+                                 (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
+
+      ;; Set faces for heading levels
+      (dolist (face '((org-level-1 . 1.2)
+                      (org-level-2 . 1.1)
+                      (org-level-3 . 1.05)
+                      (org-level-4 . 1.0)
+                      (org-level-5 . 1.1)
+                      (org-level-6 . 1.1)
+                      (org-level-7 . 1.1)
+                      (org-level-8 . 1.1)))
+        (set-face-attribute (car face) nil :font "Cantarell" :weight 'regular :height (cdr face)))
+
+      ;; Ensure that anything that should be fixed-pitch in Org files appears that way
+      (set-face-attribute 'org-block nil    :foreground nil :inherit 'fixed-pitch)
+      (set-face-attribute 'org-table nil    :inherit 'fixed-pitch)
+      (set-face-attribute 'org-formula nil  :inherit 'fixed-pitch)
+      (set-face-attribute 'org-code nil     :inherit '(shadow fixed-pitch))
+      (set-face-attribute 'org-table nil    :inherit '(shadow fixed-pitch))
+      (set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
+      (set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
+      (set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
+      (set-face-attribute 'org-checkbox nil  :inherit 'fixed-pitch)
+      (set-face-attribute 'line-number nil :inherit 'fixed-pitch)
+      (set-face-attribute 'line-number-current-line nil :inherit 'fixed-pitch))
+
+    ;; TODO for now should fix the font zoom in not working for zen mode
+    ;; (cc/org-font-setup)
+  )
+
+
+;; (use-package! websocket
+;;   :after org-roam)
+
+
+;; (use-package! org-roam-ui
+;;   :after org-roam
+;;   :config
+;;   (setq org-roam-ui-sync-theme t
+;;         org-roam-ui-follow tl
+;;         org-roam-ui-update-on-save t
+;;         org-roam-ui-open-on-start t))
+
+
+
+
+(after! org
+  (define-key org-mode-map (kbd "C-c C-r") verb-command-map)
+
   )

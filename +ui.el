@@ -1,24 +1,43 @@
 ;;; ~/.doom.d/+ui.el -*- lexical-binding: t; -*-
 
 ;; theme
-(setq doom-theme 'doom-vibrant)
+(setq doom-theme 'doom-dark+) ;;'doom-palenight)
 
-(setq doom-font (font-spec :family "MesloLGM NF" :size 26 :weight 'normal :width 'normal)
-      doom-variable-pitch-font (font-spec :family "MesloLGM NF" :size 26 :weight 'normal :width 'normal)
-      doom-big-font (font-spec :family "MesloLGM NF" :size 40))
+(setq doom-font (font-spec :family "Fira Code Retina" :size 26 :weight 'normal :width 'normal)
+      doom-variable-pitch-font (font-spec :family "Fira Code Retina" :size 26 :weight 'normal :width 'normal)
+      doom-big-font (font-spec :family "Fira Code Retina" :size 40))
 
-(dolist (charset '(kana han symbol cjk-misc bopomofo))
-   (set-fontset-font
-    (frame-parameter nil 'font)
-    charset
-    (font-spec :name "-*-STFangsong-normal-normal-normal-*-*-*-*-*-p-0-iso10646-1"
-               :weight 'normal
-               :slant 'normal
-               :size 32)))
+(defun set-chinese-font()
+  (interactive)
+  (if (not (boundp 'writeroom-mode))
+      (setq writeroom-mode nil))
+ (dolist (charset '(kana han symbol cjk-misc bopomofo))
+    (set-fontset-font
+     (frame-parameter nil 'font)
+     charset
+     (font-spec :name  "-*-STKaiti-normal-normal-normal-*-*-*-*-*-p-0-iso10646-1"
+                :weight 'normal
+                :slant 'normal
+                :size (cond
+                            ((and doom-big-font-mode writeroom-mode) 72)
+                            (doom-big-font-mode 50)
+                            (writeroom-mode  46)
+                            (t 32))))))
+
+(boundp 'writeroom-mode)
+(defadvice! add-my-font-config (&rest _)
+  :after #'unicode-fonts--setup-1
+  (set-chinese-font))
+
+(add-hook! 'doom-big-font-mode-hook (set-chinese-font))
+(add-hook! 'writeroom-mode-hook (set-chinese-font))
 
 ;; line spacing
 (setq display-line-numbers-type nil)
 (setq-default line-spacing 4)
+
+;; doom-modeline
+(setq doom-modeline-major-mode-icon t)
 
 ;; start frame size
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
@@ -29,12 +48,9 @@
    (propertize
     (+doom-dashboard--center
      +doom-dashboard--width
-     msg
-     )
+     msg)
     'face 'doom-dashboard-menu-title)
-   "\n"
-   )
- )
+   "\n"))
 
 
 (defun my-dashboard-banner()
@@ -44,8 +60,8 @@
   (banner-line "這裏扯斷玉鎖。")
   (banner-line "   咦！錢塘江上潮信來，")
   (banner-line "  今日方知我是我。")
-  ;;(banner-line "         ---魯智深")
-   )
+  (banner-line "  ")
+  (banner-line "              ---魯智深"))
 
 (setq +doom-dashboard-functions
       '(
@@ -56,4 +72,4 @@
 (setq-hook! '+doom-dashboard-mode-hook evil-normal-state-cursor (list nil))
 
 
-(doom/set-frame-opacity 93)
+(doom/set-frame-opacity 95)

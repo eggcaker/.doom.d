@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: TriggerService
+# key: triggerService
+# --
+
+triggerService = response.TriggeredServiceInfo.ServiceName if response and response.TriggeredServiceInfo and response.TriggeredServiceInfo.ServiceName else None
+$0

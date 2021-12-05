@@ -16,8 +16,16 @@
 (package! org-fragtog :recipe (:host github :repo "io12/org-fragtog"))
 (package! tiny :recipe (:host github :repo "abo-abo/tiny"))
 
+(package! weblorg :recipe (:host github :repo "emacs-love/weblorg"))
+
+(package! slack :recipe (:host github :repo "eggcaker/emacs-slack"))
+(package! helm-slack :recipe (:host github :repo "yuya373/helm-slack"))
 
 (package! kubel)
 (package! kubel-evil)
 (unpin! org-roam)
+(package! org-bullets :recipe (:host github :repo "sabof/org-bullets"))
+(package! org-roam-ui)
 
+(package! verb :recipe (:host github :repo "federicotdn/verb"))
+;; (package! org-trello :recipe(:host github :repo "org-trello/org-trello"))

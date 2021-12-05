@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name: GetLastAnswerFeed
+# key: glaf
+# --
+
+def GetLastAnswerFeed(request):
+    lastRoundAnswerFeed = None
+    if request.Session:
+        rounds = request.Session.GetSessionRounds(2) if request.Session and request.Session.GetSessionRounds else None
+        if rounds:
+            lastRoundAnswerFeed = rounds[0].AnswerFeed
+        else:
+            Api.TraceError('No rounds...')
+    return lastRoundAnswerFeed
