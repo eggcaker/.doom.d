@@ -20,6 +20,13 @@
    org-agenda-compact-blocks t
    org-agenda-start-with-log-mode t)
 
+  (setq org-capture-templates
+        '(
+          ("t" "Simple todo item " entry
+                 (file+headline +org-capture-todo-file "Inbox")
+                 "* TODO %?\n%i\n%a" :prepend t)))
+
+
 (setq org-agenda-custom-commands
         '(("." "My Agenda"
            ((agenda "" ((org-agenda-span 1)
@@ -165,3 +172,9 @@
   (define-key org-mode-map (kbd "C-c C-r") verb-command-map)
 
   )
+
+(after! org-agenda
+  (defun cc/open-agenda()
+    (interactive)
+    (org-agenda nil "."))
+  (define-key! "<f12>" 'cc/open-agenda))

@@ -9,7 +9,7 @@
 (load! "+bindings")
 (load! "+ui")
 (load! "+git")
-;;(load! "+mail")
+(load! "+mail")
 ;;(load! "+org")
 ;;(load! "+anki")
 (load! "+chat")
