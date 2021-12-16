@@ -39,3 +39,9 @@
 (setq-default projectile-track-known-projects-automatically nil)
 
 (setq-default python-shell-interpreter "~/anaconda3/bin/python")
+
+
+(add-to-list 'default-frame-alist '(left . 0))
+(add-to-list 'default-frame-alist '(top . 0))
+(add-to-list 'default-frame-alist '(height . 50))
+(add-to-list 'default-frame-alist '(width. 100))

@@ -11,7 +11,7 @@
   (interactive)
   (if (not (boundp 'writeroom-mode))
       (setq writeroom-mode nil))
- (dolist (charset '(kana han symbol cjk-misc bopomofo))
+ (dolist (charset '(kana han cjk-misc bopomofo)) ;; TODO symbol not included
     (set-fontset-font
      (frame-parameter nil 'font)
      charset
@@ -73,3 +73,6 @@
 
 
 (doom/set-frame-opacity 95)
+
+
+(setq initial-frame-alist '((top . 1) (left . 1) (width . 120) (height . 55)))

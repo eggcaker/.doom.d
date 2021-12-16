@@ -31,7 +31,7 @@
    mu4e-headers-first-child-prefix '("\\" . "↳")
    mu4e-headers-duplicate-prefix '("=" . "⚌")
    mu4e-headers-default-prefix '("|" . "┃")
-   mu4e-headers-draft-mark '("D" . "📝 ")
+   mu4e-headers-draft-mark '("D" . "﻿📝 📝 ")
    mu4e-headers-flagged-mark '("F" . "🏴 ")
    mu4e-headers-new-mark '("N" . "★ ")
    mu4e-headers-passed-mark '("P" . "→ ")
