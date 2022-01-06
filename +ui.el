@@ -72,7 +72,7 @@
 (setq-hook! '+doom-dashboard-mode-hook evil-normal-state-cursor (list nil))
 
 
-(doom/set-frame-opacity 96)
+(doom/set-frame-opacity 99)
 
 
 ;; (setq initial-frame-alist '((top . 1) (left . 1) (width . 120) (height . 55)))
