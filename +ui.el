@@ -11,18 +11,21 @@
   (interactive)
   (if (not (boundp 'writeroom-mode))
       (setq writeroom-mode nil))
- (dolist (charset '(kana han symbol cjk-misc bopomofo))
-    (set-fontset-font
-     (frame-parameter nil 'font)
-     charset
-     (font-spec :name  "-*-STKaiti-normal-normal-normal-*-*-*-*-*-p-0-iso10646-1"
-                :weight 'normal
-                :slant 'normal
-                :size (cond
-                            ((and doom-big-font-mode writeroom-mode) 72)
-                            (doom-big-font-mode 50)
-                            (writeroom-mode  46)
-                            (t 32))))))
+  (display-graphic-p)
+
+  (if (display-graphic-p)
+      (dolist (charset '(kana han cjk-misc bopomofo)) ;; TODO symbol not included
+        (set-fontset-font
+         (frame-parameter nil 'font)
+         charset
+         (font-spec :name  "-*-STKaiti-normal-normal-normal-*-*-*-*-*-p-0-iso10646-1"
+                    :weight 'normal
+                    :slant 'normal
+                    :size (cond
+                           ((and doom-big-font-mode writeroom-mode) 72)
+                           (doom-big-font-mode 50)
+                           (writeroom-mode  46)
+                           (t 32)))))))
 
 (boundp 'writeroom-mode)
 (defadvice! add-my-font-config (&rest _)
@@ -72,4 +75,7 @@
 (setq-hook! '+doom-dashboard-mode-hook evil-normal-state-cursor (list nil))
 
 
-(doom/set-frame-opacity 95)
+(doom/set-frame-opacity 99)
+
+
+;; (setq initial-frame-alist '((top . 1) (left . 1) (width . 120) (height . 55)))

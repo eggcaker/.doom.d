@@ -19,8 +19,8 @@
   (slack-register-team
    :name "xiaobingworkspace"
    :default t
-   :token slack-token
-   :cookie slack-cookie
+   :token my-slack-token
+   :cookie my-slack-cookie
    :subscribed-channels '(openapi openapi-kuangshi)
    :full-and-display-names t)
 

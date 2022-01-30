@@ -27,15 +27,21 @@
 (setq-default server-name "emacs_server_27_2")
 
 
-;; (prefer-coding-system       'utf-8)
-;; (set-default-coding-systems 'utf-8)
-;; (set-terminal-coding-system 'utf-8)
-;; (set-selection-coding-system 'utf-16-le)
+(prefer-coding-system       'utf-8)
+(set-default-coding-systems 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-selection-coding-system 'utf-8);;=utf-16-le)
 ;; (set-keyboard-coding-system 'utf-8)
-;; (setq default-buffer-file-coding-system 'utf-8)
-;; (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
+(setq default-buffer-file-coding-system 'utf-8)
+;;(setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
 
 
 (setq-default projectile-track-known-projects-automatically nil)
 
 (setq-default python-shell-interpreter "~/anaconda3/bin/python")
+
+
+(add-to-list 'default-frame-alist '(left . 0))
+(add-to-list 'default-frame-alist '(top . 0))
+(add-to-list 'default-frame-alist '(height . 50))
+(add-to-list 'default-frame-alist '(width. 100))
