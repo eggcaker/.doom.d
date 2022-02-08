@@ -1,10 +1,34 @@
 ;;; +ledger.el -*- lexical-binding: t; -*-
-(use-package hledger-mode
-  :pin manual
-  :after htmlize
-  :mode ("\\.journal\\'" "\\.hledger\\'" "\\.ledger")
+(use-package! hledger-mode
+  :mode ("\\.journal" "\\.hledger" "\\.ledger")
   :commands hledger-enable-reporting
   :preface
+
+(defun center-text-for-reading (&optional arg)
+  "Setup margins for reading long texts.
+If ARG is supplied, reset margins and fringes to zero."
+  (interactive "P")
+  ;; Set the margin width to zero first so that the whole window is
+  ;; available for text area.
+  (set-window-margins (selected-window) 0)
+  (let* ((max-text-width (save-excursion
+                           (let ((w 0))
+                             (goto-char (point-min))
+                             (while (not (eobp))
+                               (end-of-line)
+                               (setq w (max w (current-column)))
+                               (forward-line))
+                             w)))
+         (margin-width (if arg
+                           0
+                         (/ (max (- (frame-width) max-text-width) 0) 3))))
+    (setq left-margin-width margin-width)
+    (setq right-margin-width margin-width)
+    ;; `set-window-margings' does a similar thing but those changes do
+    ;; not persist across buffer switches.
+    (set-window-buffer nil (current-buffer))))
+
+
   (defun hledger/next-entry ()
     "Move to next entry and pulse."
     (interactive)
@@ -29,10 +53,8 @@
          ("M-p" . hledger/prev-entry)
          ("M-n" . hledger/next-entry))
   :init
-  (setq hledger-jfile
-        (expand-file-name "~/miscellany/personal/finance/accounting.journal")
-        hledger-email-secrets-file (expand-file-name "secrets.el"
-                                                     emacs-assets-directory))
+  (setq hledger-jfile (expand-file-name "~/.finance/current.hledger")
+        hledger-email-secrets-file (expand-file-name "~/secrets.el" ))
   ;; Expanded account balances in the overall monthly report are
   ;; mostly noise for me and do not convey any meaningful information.
   (setq hledger-show-expanded-report nil)
@@ -53,10 +75,12 @@
                                   (highlight-regexp "^.*\\(savings\\|cash\\).*$")
                                   (highlight-regexp "^.*credit-card.*$"
                                                     'hledger-warning-face))))))
+
   (add-hook 'hledger-mode-hook
             (lambda ()
               (make-local-variable 'company-backends)
               (add-to-list 'company-backends 'hledger-company))))
+
 (use-package hledger-input
   :pin manual
   :bind (("C-c e" . hledger-capture)

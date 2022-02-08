@@ -31,5 +31,5 @@
 ;; (package! org-trello :recipe(:host github :repo "org-trello/org-trello"))
 
 
-;; (package! hledger-input :recipe (:host github :repo "inarendraj9/hledger-mode"))
-;; (package! hledger-mode :recipe (:host github :repo "inarendraj9/hledger-mode"))
+(package! hledger-input :recipe (:host github :repo "eggcaker/hledger-mode"))
+(package! hledger-mode  :recipe (:host github :repo "eggcaker/hledger-mode"))
