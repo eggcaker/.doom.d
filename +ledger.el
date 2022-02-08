@@ -2,7 +2,7 @@
 (use-package hledger-mode
   :pin manual
   :after htmlize
-  :mode ("\\.journal\\'" "\\.hledger\\'")
+  :mode ("\\.journal\\'" "\\.hledger\\'" "\\.ledger")
   :commands hledger-enable-reporting
   :preface
   (defun hledger/next-entry ()
