@@ -46,7 +46,12 @@
     (cons 360 "#37474F")))
  '(vc-annotate-very-old-color nil)
  '(warning-suppress-log-types '((lsp-mode) (lsp-mode) (comp)))
- '(warning-suppress-types '((lsp-mode) (lsp-mode) (comp))))
+ '(warning-suppress-types
+   '((org-element-cache)
+     (org-element-cache)
+     (lsp-mode)
+     (lsp-mode)
+     (comp))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
