@@ -33,3 +33,5 @@
 
 ;; (package! hledger-input :recipe (:host github :repo "eggcaker/hledger-mode"))
 ;; (package! hledger-mode  :recipe (:host github :repo "eggcaker/hledger-mode"))
+
+(package! nu-mode :recipe (:host github :repo "eggcaker/nu-mode"))

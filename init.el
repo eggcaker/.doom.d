@@ -153,7 +153,7 @@
         ;;+present
         )        ; using org-mode for presentations
        ;;perl              ; write code no one else can comprehend
-       ;;php               ; perl's insecure younger brother
+       php               ; perl's insecure younger brother
        plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
        (python +lsp +pyright +poetry +pyenv )       ; beautiful is better than ugly

@@ -22,3 +22,5 @@
 (load! "+work")
 (load! "+tools")
 (load! "+ledger")
+
+(load! "+nushell")
