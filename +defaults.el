@@ -45,3 +45,7 @@
 (add-to-list 'default-frame-alist '(top . 0))
 (add-to-list 'default-frame-alist '(height . 50))
 (add-to-list 'default-frame-alist '(width. 100))
+
+
+(setenv "PATH" (concat (getenv "PATH") ":" (expand-file-name "~/.go/bin")))
+(setq exec-path (append exec-path (list (expand-file-name "~/.go/bin"))))
