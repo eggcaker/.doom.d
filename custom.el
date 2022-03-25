@@ -19,7 +19,7 @@
  '(org-agenda-files
    '("~/src/learn/TODO.org" "~/org/journal.org" "~/org/personal.org" "~/org/todo.org" "~/org/xiaobing.org"))
  '(package-selected-packages
-   '(ledger-mode counsel swiper jq-mode restclient-helm org-roam-ui efar verb csharp-mode secret-mode v-mode snow magit powershell eglot lsp-mode json-mode org-starter tiny org-books org-fragtog org-super-agenda forge))
+   '(protobuf-mode ledger-mode counsel swiper jq-mode restclient-helm org-roam-ui efar verb csharp-mode secret-mode v-mode snow magit powershell eglot lsp-mode json-mode org-starter tiny org-books org-fragtog org-super-agenda forge))
  '(pdf-view-midnight-colors (cons "#d4d4d4" "#1e1e1e"))
  '(rustic-ansi-faces
    ["#1e1e1e" "#D16969" "#579C4C" "#D7BA7D" "#339CDB" "#C586C0" "#85DDFF" "#d4d4d4"])

@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: lnp
+# key: lnp
+# --
+fmt.Println("${1:Label}", $2)
+$0

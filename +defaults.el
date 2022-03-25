@@ -49,3 +49,7 @@
 
 (setenv "PATH" (concat (getenv "PATH") ":" (expand-file-name "~/.go/bin")))
 (setq exec-path (append exec-path (list (expand-file-name "~/.go/bin"))))
+
+(setq whitespace-global-modes '(not go-mode))
+
+(setq-default tab-width 2)
