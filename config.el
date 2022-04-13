@@ -12,7 +12,7 @@
 (load! "+mail")
 ;;(load! "+org")
 ;;(load! "+anki")
-(load! "+chat")
+;;(load! "+chat")
 ;; (load! "+tex")
 (load! "+python")
 ;; (load! "+k8s")
