@@ -15,7 +15,7 @@
 ;;(load! "+chat")
 ;; (load! "+tex")
 (load! "+python")
-;; (load! "+k8s")
+(load! "+k8s")
 (load! "+gtd")
 (load! "+lab")
 (load! "+blog")

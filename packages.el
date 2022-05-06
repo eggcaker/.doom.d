@@ -21,8 +21,9 @@
 ;; (package! slack :recipe (:host github :repo "eggcaker/emacs-slack"))
 (package! helm-slack :recipe (:host github :repo "yuya373/helm-slack"))
 
-(package! kubel)
-(package! kubel-evil)
+(package! kubernetes)
+(package! kubernetes-evil)
+(package! k8s-mode)
 (unpin! org-roam)
 (package! org-bullets :recipe (:host github :repo "sabof/org-bullets"))
 (package! org-roam-ui)

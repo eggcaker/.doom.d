@@ -1,13 +1,21 @@
 ;;; k8s.el -*- lexical-binding: t; -*-
 
-(use-package kubel
+
+(use-package kubernetes
   :ensure t
+  :commands (kubernetes-overview)
   :config
-  (set-popup-rule!
-    "^\\*kubel" :ignore t)
-  :commands (kubernetes-overview))
+  (setq kubernetes-poll-frequency 3600
+        kubernetes-redraw-frequency 3600))
+
+
 
 ;; If you want to pull in the Evil compatibility package.
-(use-package kubel-evil
+(use-package kubernetes-evil
   :ensure t
-  :after kubel)
+  :after kubernetes)
+
+
+(use-package k8s-mode
+  :ensure t
+  :hook (k8s-mode . yas-minor-mode))
