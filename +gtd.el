@@ -35,7 +35,7 @@
                          '((:name "Today List"
                                   :time-grid t
                                   :date today
-                                  :todo "INPROCESS"
+                                  ;;:todo '("INPROCESS" "TODO")
                                   :scheduled today
                                   :order 1)))))
             (alltodo "" ((org-agenda-overriding-header "")
@@ -47,19 +47,23 @@
                             (:name "Next to do"
                                    :priority>= "B"
                                    :order 2)
-                            (:name "Due Soon"
-                                   :deadline future
-                                   :order 8)
                             (:name "Overdue"
                                    :deadline past
-                                   :order 20)
-                            (:name "Xiaobing"
-                                   :category "Xiaobing"
+                                   :order 3)
+                            (:name "Due Soon"
+                                   :deadline future
+                                   :order 4)
+                            (:name "Cx-Related"
+                                   :category "CX"
                                    :tag "Xiaobing"
-                                   :order 10)
+                                   :order 5)
                             (:name "Backend"
-                                   :and (:todo "Doing" :category "Trello")
-                                   :order 11)
+                                   :and (:todo "TODO" :category "Backend")
+                                   :order 6)
+                            (:name "DevOps"
+                                   :and (:todo "TODO" :category "DevOps")
+                                   :habit nil
+                                   :order 7)
                             (:name "Emacs"
                                    :category "Emacs"
                                    :tag "Emacs"
@@ -75,8 +79,7 @@
                                    :priority<= "C"
                                    :todo ("SOMEDAY")
                                    :order 90)
-                            (:discard (:anything t)
-                             )
+                            (:discard (:anything t ))
 
                             ))))))))
 
