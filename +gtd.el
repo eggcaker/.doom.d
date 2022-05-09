@@ -51,7 +51,7 @@
                                    :deadline past
                                    :order 3)
                             (:name "Due Soon"
-                                   :deadline future
+                                   :deadline today
                                    :order 4)
                             (:name "Cx-Related"
                                    :category "CX"
