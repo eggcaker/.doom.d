@@ -64,6 +64,12 @@
                                    :and (:todo "TODO" :category "DevOps")
                                    :habit nil
                                    :order 7)
+                            (:name "Android"
+                                   :and (:todo "TODO" :category "Android")
+                                   :order 8)
+                             (:name "Life"
+                                   :category "Life"
+                                   :order 9)
                             (:name "Emacs"
                                    :category "Emacs"
                                    :tag "Emacs"
