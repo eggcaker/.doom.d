@@ -1,9 +1,9 @@
 ;;; +work.el -*- lexical-binding: t; -*-
 
-(setq-default xiaoice-project-root "D:/Work/Xiaobing/private/src/Workflow.Scripts")
+(setq-default xiaoice-project-root "~/src/Xiaobing/private/src/Workflow.Scripts")
 
 (defun counsel-partner-workflow-list ()
-  (split-string (shell-command-to-string "cat d:/Work/Cloud/Scripts/partner/configtest/OpenApi/WorkflowMapping.ini") "\n" t))
+  (split-string (shell-command-to-string "cat /mnt/d/Work/Cloud/Scripts/partner/configtest/OpenApi/WorkflowMapping.ini") "\n" t))
 
 (defun counsel-partner-workflow-action-default(workflow)
   (let ((w  (car (last (split-string (car (last (split-string workflow "\t" t))) ":" t)))))
@@ -26,6 +26,19 @@
 
 (setq-default py-files '("scriptint" "scripttest" "script"))
 (setq-default xml-files '("workflowint" "workflowtest" "workflow"))
+
+(defun cc/push-workflow-file()
+  (interactive)
+  (let ((file-name (buffer-file-name)))
+    (if (s-contains? "Workflow.Scripts" file-name)
+        (async-shell-command (concat "w.push " file-name)))))
+
+(defun cc/pull-workflow-file()
+  (interactive)
+  (let ((file-name (buffer-file-name)))
+    (if (s-contains? "Workflow.Scripts" file-name)
+        (async-shell-command (concat "w.pull " file-name)))))
+
 
 (defun cc/swith-workflow-file ()
   (interactive)
@@ -77,17 +90,27 @@
 
 (require 's)
 
-(map! ;;(:when (> (string-match-p "Workflow.Scripts" (buffer-file-name) ) 0)
+(map! (:when (s-contains? "Workflow.Scripts" (buffer-file-name))
        :map (xml-mode python-mode)
        :leader
        :desc "Swith project workflow files."
-       "m g" #'cc/swith-workflow-file)
+       "m g" #'cc/swith-workflow-file))
 
-(map! :leader
-      :desc "Open a project int workflow file"
-      "f w" #'counsel-workflow)
+(map! (:when (s-contains? "Workflow.Scripts" (buffer-file-name))
+       :map (xml-mode python-mode)
+       :leader
+       :desc "Open a project int workflow file"
+       "f w" #'counsel-workflow))
 
-;; (defun push-int-file()
-;;   (interactive)
-;;   (shell-command (concat "pwsh " "d:\\Work\\OneDrive - xiaobing.ai\\Tools\\bin\\push.ps1" $f )"w push")
-;;   )
+
+(map! ;;(:when (s-contains? "Workflow.Scripts" (buffer-file-name))
+       :map (xml-mode python-mode)
+       :leader
+       :desc "Push local file to azure."
+       "m p" #'cc/push-workflow-file)
+
+(map! ;;(:when (s-contains? "Workflow.Scripts" (buffer-file-name))
+        :map (xml-mode python-mode)
+       :leader
+       :desc "Pull a file from azure."
+       "m f" #'cc/pull-workflow-file)
