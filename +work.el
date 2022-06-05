@@ -5,24 +5,15 @@
 (defun counsel-partner-workflow-list ()
   (split-string (shell-command-to-string "cat /mnt/d/Work/Cloud/Scripts/partner/configtest/OpenApi/WorkflowMapping.ini") "\n" t))
 
-(defun counsel-partner-workflow-action-default(workflow)
-  (let ((w  (car (last (split-string (car (last (split-string workflow "\t" t))) ":" t)))))
+(defun cc/open-workflow-file(workflow)
+  (let ((w  (car (last (split-string (car (last (split-string (s-replace "\r" "" workflow) "\t" t))) ":" t)))))
     (find-file (concat xiaoice-project-root "/workflowint/" w ".workflow.xml"))))
 
-(defun counsel-workflow (&optional arg)
-  "Open a worfflow file. When ARG is non-nil, ignore NoDisplay property in *.desktop files."
-  (interactive "P")
-  (ivy-read "Open a .workflow.xml: " (counsel-partner-workflow-list)
-            :action #'counsel-partner-workflow-action-default
-            :caller 'counsel-workflow))
-
-(defun my-function ()
- (interactive)
-  (if (equal current-prefix-arg nil) ; no C-u
-   ;; then
-    (message "my-function was called normally")
-   ;; else
-    (message "my-function was called with C-u")))
+(defun consult-workflow ()
+  "Open a workflow file"
+  (interactive)
+  (cc/open-workflow-file
+   (consult--read (counsel-partner-workflow-list))))
 
 (setq-default py-files '("scriptint" "scripttest" "script"))
 (setq-default xml-files '("workflowint" "workflowtest" "workflow"))
@@ -67,8 +58,12 @@
                           (s-concat (s-chop-suffix "</Service>" (s-chop-prefix "<Service>" workflow-item-name)) ".py"))))
 
                ((s-contains? "<PostAction>" workflow-item-name)
-                (find-file-other-window (s-concat (s-replace "workflowint" "scriptint" (f-dirname file-name )) "/"
-                           (s-concat (s-chop-suffix "</PostAction>" (s-chop-prefix "<PostAction>" workflow-item-name)) ".py"))))
+                (progn
+                  (find-file-other-window (s-concat (s-replace "workflowint" "scriptint" (f-dirname file-name )) "/"
+                                                  (s-concat (s-chop-suffix "</PostAction>" (s-chop-prefix "<PostAction>" workflow-item-name)) ".py")))
+                  (beginning-of-buffer)
+                  (search-forward "def PostRun")
+                  ))
 
                )))
 
@@ -80,27 +75,29 @@
                           (s-concat (s-chop-suffix "</Service>" (s-chop-prefix "<Service>" workflow-item-name)) ".py"))))
 
                ((s-contains? "<PostAction>" workflow-item-name)
-                (find-file-other-window (s-concat (s-replace "workflowint" "scriptint" (f-dirname file-name )) "/"
-                           (s-concat (s-chop-suffix "</PostAction>" (s-chop-prefix "<PostAction>" workflow-item-name)) ".py"))))
-
+                (progn
+                  (find-file-other-window (s-concat (s-replace "workflowint" "scriptint" (f-dirname file-name )) "/"
+                                                  (s-concat (s-chop-suffix "</PostAction>" (s-chop-prefix "<PostAction>" workflow-item-name)) ".py")))
+                  (beginning-of-buffer)
+                  (search-forward "def PostRun")
+                  ))
                )))
 
 
            )))))
 
-(require 's)
 
-(map! (:when (s-contains? "Workflow.Scripts" (buffer-file-name))
+(map! ;; (:when (s-contains? "Workflow.Scripts" (buffer-file-name))
        :map (xml-mode python-mode)
        :leader
        :desc "Swith project workflow files."
-       "m g" #'cc/swith-workflow-file))
+       "m g" #'cc/swith-workflow-file)
 
-(map! (:when (s-contains? "Workflow.Scripts" (buffer-file-name))
+(map! ;;(:when (s-contains? "Workflow.Scripts" (buffer-file-name))
        :map (xml-mode python-mode)
        :leader
        :desc "Open a project int workflow file"
-       "f w" #'counsel-workflow))
+       "f w" #'consult-workflow)
 
 
 (map! ;;(:when (s-contains? "Workflow.Scripts" (buffer-file-name))
