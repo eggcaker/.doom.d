@@ -36,3 +36,7 @@
 ;; (package! hledger-mode  :recipe (:host github :repo "eggcaker/hledger-mode"))
 
 ;; (package! nu-mode :recipe (:host github :repo "eggcaker/nu-mode"))
+
+
+(package! copilot
+  :recipe (:host github :repo "zerolfx/copilot.el" :files ("*.el" "dist")))

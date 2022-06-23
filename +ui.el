@@ -1,7 +1,7 @@
 ;;; ~/.doom.d/+ui.el -*- lexical-binding: t; -*-
 
 ;; theme
-(setq doom-theme 'doom-dark+) ;;'doom-palenight)
+(setq doom-theme 'doom-nord) ;;'doom-palenight)
 
 (setq doom-font (font-spec :family "Fira Code Retina" :size 26 :weight 'normal :width 'normal)
       doom-variable-pitch-font (font-spec :family "Fira Code Retina" :size 26 :weight 'normal :width 'normal)

@@ -18,17 +18,24 @@
 (setq-default py-files '("scriptint" "scripttest" "script"))
 (setq-default xml-files '("workflowint" "workflowtest" "workflow"))
 
+(defun kill-async-command-buffer()
+  (interactive)
+  (kill-matching-buffers "*Async Shell Command*" nil t))
+
 (defun cc/push-workflow-file()
   (interactive)
   (let ((file-name (buffer-file-name)))
     (if (s-contains? "Workflow.Scripts" file-name)
-        (async-shell-command (concat "w.push " file-name)))))
+        (progn (async-shell-command (concat "w.push " file-name))
+      (run-at-time 3 nil  #'kill-async-command-buffer)))))
 
 (defun cc/pull-workflow-file()
   (interactive)
   (let ((file-name (buffer-file-name)))
     (if (s-contains? "Workflow.Scripts" file-name)
-        (async-shell-command (concat "w.pull " file-name)))))
+        (progn
+          (async-shell-command (concat "w.pull " file-name))
+          (run-at-time 3 nil  #'kill-async-command-buffer)))))
 
 
 (defun cc/swith-workflow-file ()
