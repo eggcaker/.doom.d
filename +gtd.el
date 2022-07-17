@@ -149,3 +149,6 @@
     (interactive)
     (org-agenda nil "."))
   (define-key! "<f12>" 'cc/open-agenda))
+
+(use-package! vulpea
+        :hook ((org-roam-db-autosync-mode . vulpea-db-autosync-enable)))

@@ -45,13 +45,10 @@
         (progn
           (setq case-fold-search nil)
           (setq env (car (--> (s-match-strings-all "scriptint\\|scripttest\\|script" file-name) (-flatten-n 1 it)  )))
-          (message env)
-          (message file-name)
           (delete-other-windows)
           (cond
            ((and (s-ends-with? ".py" file-name ) (string-match-p "scriptint\\|scripttest\\|script" file-name))
            (let ((right-file-name (s-replace env (-> env (-elem-index py-files) (+ 1) (mod 3) (nth py-files)) file-name)  ))
-              (message right-file-name)
               (if (file-exists-p right-file-name)
                   (find-file-other-window right-file-name)
                 (copy-file file-name right-file-name)

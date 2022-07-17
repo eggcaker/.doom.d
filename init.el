@@ -144,7 +144,7 @@
        ;;ocaml             ; an objective camel
        ;;
        (org              ; organize your plain life in plain text
-        ;;+roam2
+        +roam2
         ;; +hugo            ; use Emacs for hugo blogging
         ;; +gnuplot
         ;; +jupyter        ; ipython/jupyter support for babel

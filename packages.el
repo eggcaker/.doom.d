@@ -29,14 +29,11 @@
 (package! org-roam-ui)
 
 (package! verb :recipe (:host github :repo "federicotdn/verb"))
-;; (package! org-trello :recipe(:host github :repo "org-trello/org-trello"))
-
-
-;; (package! hledger-input :recipe (:host github :repo "eggcaker/hledger-mode"))
-;; (package! hledger-mode  :recipe (:host github :repo "eggcaker/hledger-mode"))
 
 ;; (package! nu-mode :recipe (:host github :repo "eggcaker/nu-mode"))
 
-
 (package! copilot
   :recipe (:host github :repo "zerolfx/copilot.el" :files ("*.el" "dist")))
+
+
+(package! vulpea :recipe (:host github :repo "d12frosted/vulpea"))
