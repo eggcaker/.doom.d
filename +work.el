@@ -91,6 +91,66 @@
            )))))
 
 
+﻿(defun get-character-by-id(pid)
+  (interactive)
+  (let* ((json-object-type 'hash-table)
+         (json-array-type 'list)
+         (json-key-type 'string)
+         (json (json-read-file partner-json-file)))
+    (gethash "Character" (gethash pid json))))
+
+
+(setq partner-json-file
+      (cond (
+             (string= system-type "windows-nt") "d:/Work/Cloud/Tools/Postman/Partners.json")
+            (t "/home/eggcaker/.bin/Partners.json")))
+
+(defun create-xiaoice-api-test()
+  (interactive)
+  (let ((workflow (consult--read (counsel-partner-workflow-list))))
+    (let (
+          (w  (car (last (split-string (car (last (split-string (s-replace "\r" "" workflow) "\t" t))) ":" t))))
+          (pid (car (split-string (s-replace "\r" "" workflow) "\t" t)))
+          (query (read-string "Type Query: " "你叫什么名字?")))
+
+      (create-file-buffer (concat "demo-xiaoice-api-" pid))
+      (switch-to-buffer (concat "demo-xiaoice-api-" pid))
+      (restclient-mode)
+      (erase-buffer)
+      (insert (format "# xiaoice core api call for for partner %s with workflow %s\n" pid w ) )
+      (insert ":random_id := (org-id-uuid)\n")
+      (insert "\n")
+      (insert (format "POST http://prod-xiaoicecore-commercialppe.trafficmanager.cn/api/chitchat/reply?workflow=%s\n" w))
+      (insert "Content-Type: application/json\n")
+      (insert "\n")
+      (insert "{\n")
+      (insert "  \"MasterPuid\": \":random_id\",\n")
+      (insert "  \"SenderPuid\": \":random_id\",\n")
+      (insert "  \"MasterUuid\": \":random_id\",\n")
+      (insert "  \"SenderUuid\": \":random_id\",\n")
+      (insert "  \"Content\": {\n")
+      (insert (concat "    \"Text\": \"" query "\",\n"))
+      (insert "    \"Metadata\": {\n")
+      (insert (concat "      \"Character\": \"" (get-character-by-id pid) "\"\n"))
+      (insert "    },\n")
+      (insert "    \"ContentType\": 1\n")
+      (insert "  },\n")
+      (insert "  \"PartnerInfo\": {\n")
+      (insert (format "    \"PartnerId\": %s ,\n" pid))
+      (insert (format "    \"PartnerName\": \"TEST-PARTNER-%s\"\n" pid))
+      (insert "  }\n")
+      (insert "}\n")
+
+      (restclient-http-send-current nil t)
+      (goto-line 13)
+      (move-to-column 13 )
+      (evil-visual-char)
+      )))
+
+
+(map! :leader "os" 'create-xiaoice-api-test)
+
+
 (map! ;; (:when (s-contains? "Workflow.Scripts" (buffer-file-name))
        :map (xml-mode python-mode)
        :leader

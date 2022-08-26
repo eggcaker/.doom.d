@@ -37,3 +37,5 @@
 
 
 (package! vulpea :recipe (:host github :repo "d12frosted/vulpea"))
+
+(package! deft :recipe (:host github :repo "jrblevin/deft"))

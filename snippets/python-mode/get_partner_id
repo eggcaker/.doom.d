@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: get_partner_id
+# key: get.partnerid
+# --
+
+partnerId = request.PartnerInfo.PartnerId if request.PartnerInfo and request.PartnerInfo.PartnerId else None

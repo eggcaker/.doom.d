@@ -103,7 +103,7 @@
 
 (after! org
     (setq org-ellipsis " ▾")
-
+    (define-key org-mode-map (kbd "C-c C-r") verb-command-map)
     (defun cc/org-font-setup ()
       ;; Replace list hyphen with dot
       (font-lock-add-keywords 'org-mode
@@ -139,11 +139,6 @@
   )
 
 
-(after! org
-  (define-key org-mode-map (kbd "C-c C-r") verb-command-map)
-
-  )
-
 (after! org-agenda
   (defun cc/open-agenda()
     (interactive)
@@ -152,3 +147,73 @@
 
 (use-package! vulpea
         :hook ((org-roam-db-autosync-mode . vulpea-db-autosync-enable)))
+
+
+(use-package! deft
+  :bind ("<f8>" . deft)
+  :commands (deft)
+  :config (setq deft-directory "~/MyNotes"
+                deft-recursive t
+                deft-extensions '("md" "org")))
+
+
+(after! org-roam
+
+ ;; (org-roam-completion-everywhere t)
+ ;;  (org-roam-completion-system 'default)
+ ;;  (org-roam-capture-templates
+ ;;   '(("d" "default" plain
+ ;;      #'org-roam-capture--get-point
+ ;;      "%?"
+ ;;      :file-name "%<%Y%m%d%H%M%S>-${slug}"
+ ;;      :head "#+title: ${title}\n"
+ ;;      :unnarrowed t)
+ ;;     ("ll" "link note" plain
+ ;;      #'org-roam-capture--get-point
+ ;;      "* %^{Link}"
+ ;;      :file-name "Inbox"
+ ;;      :olp ("Links")
+ ;;      :unnarrowed t
+ ;;      :immediate-finish)
+ ;;     ("lt" "link task" entry
+ ;;      #'org-roam-capture--get-point
+ ;;      "* TODO %^{Link}"
+ ;;      :file-name "Inbox"
+ ;;      :olp ("Tasks")
+ ;;      :unnarrowed t
+ ;;      :immediate-finish)))
+ ;;  (org-roam-dailies-directory "Journal/")
+ ;;  (org-roam-dailies-capture-templates
+ ;;   '(("d" "default" entry
+ ;;      #'org-roam-capture--get-point
+ ;;      "* %?"
+ ;;      :file-name "Journal/%<%Y-%m-%d>"
+ ;;      :head "#+title: %<%Y-%m-%d %a>\n\n[[roam:%<%Y-%B>]]\n\n")
+ ;;     ("t" "Task" entry
+ ;;      #'org-roam-capture--get-point
+ ;;      "* TODO %?\n  %U\n  %a\n  %i"
+ ;;      :file-name "Journal/%<%Y-%m-%d>"
+ ;;      :olp ("Tasks")
+ ;;      :empty-lines 1
+ ;;      :head "#+title: %<%Y-%m-%d %a>\n\n[[roam:%<%Y-%B>]]\n\n")
+ ;;     ("j" "journal" entry
+ ;;      #'org-roam-capture--get-point
+ ;;      "* %<%I:%M %p> - Journal  :journal:\n\n%?\n\n"
+ ;;      :file-name "Journal/%<%Y-%m-%d>"
+ ;;      :olp ("Log")
+ ;;      :head "#+title: %<%Y-%m-%d %a>\n\n[[roam:%<%Y-%B>]]\n\n")
+ ;;     ("l" "log entry" entry
+ ;;      #'org-roam-capture--get-point
+ ;;      "* %<%I:%M %p> - %?"
+ ;;      :file-name "Journal/%<%Y-%m-%d>"
+ ;;      :olp ("Log")
+ ;;      :head "#+title: %<%Y-%m-%d %a>\n\n[[roam:%<%Y-%B>]]\n\n")
+ ;;     ("m" "meeting" entry
+ ;;      #'org-roam-capture--get-point
+ ;;      "* %<%I:%M %p> - %^{Meeting Title}  :meetings:\n\n%?\n\n"
+ ;;      :file-name "Journal/%<%Y-%m-%d>"
+ ;;      :olp ("Log")
+ ;;             :head "#+title: %<%Y-%m-%d %a>\n\n[[roam:%<%Y-%B>]]\n\n")))
+
+
+  )
