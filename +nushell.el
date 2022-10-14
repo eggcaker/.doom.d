@@ -1,4 +1,7 @@
 ;;; +nushell.el -*- lexical-binding: t; -*-
 
-(use-package! nu-mode
-  :mode ("\\.nu"))
+
+(use-package! nushell-mode
+  :mode "\\.nu"
+  :ensure t
+  )

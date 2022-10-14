@@ -91,7 +91,7 @@
            )))))
 
 
-﻿(defun get-character-by-id(pid)
+(defun get-character-by-id(pid)
   (interactive)
   (let* ((json-object-type 'hash-table)
          (json-array-type 'list)

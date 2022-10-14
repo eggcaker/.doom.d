@@ -60,3 +60,10 @@
 ;;          :map company-mode-map
 ;;          ("<tab>" . 'my-tab)
 ;;          ("TAB" . 'my-tab)))
+
+
+
+(use-package! nushell-mode
+  :mode "\\.nu"
+  :ensure t
+  )
