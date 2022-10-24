@@ -26,7 +26,7 @@
   (interactive)
   (let ((file-name (buffer-file-name)))
     (if (s-contains? "Workflow.Scripts" file-name)
-        (progn (async-shell-command (concat "w.push " file-name))
+        (progn (async-shell-command (concat "~/.bin/w.push " file-name))
       (run-at-time 3 nil  #'kill-async-command-buffer)))))
 
 (defun cc/pull-workflow-file()
@@ -34,7 +34,7 @@
   (let ((file-name (buffer-file-name)))
     (if (s-contains? "Workflow.Scripts" file-name)
         (progn
-          (async-shell-command (concat "w.pull " file-name))
+          (async-shell-command (concat "~/.bin/w.pull " file-name))
           (run-at-time 3 nil  #'kill-async-command-buffer)))))
 
 

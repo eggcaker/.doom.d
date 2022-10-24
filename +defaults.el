@@ -47,8 +47,8 @@
 (add-to-list 'default-frame-alist '(width. 100))
 
 
-(setenv "PATH" (concat (getenv "PATH") ":" (expand-file-name "~/.go/bin")))
-(setq exec-path (append exec-path (list (expand-file-name "~/.go/bin"))))
+(setenv "PATH" (concat (getenv "PATH") ":" (expand-file-name "~/.cargo/bin")))
+(setq exec-path (append exec-path (list (expand-file-name "~/.cargo/bin"))))
 
 (setq whitespace-global-modes '(not go-mode))
 
