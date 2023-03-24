@@ -43,23 +43,23 @@
 
 
 ;; accept completion from copilot and fallback to company
-;; (defun my-tab ()
-;;   (interactive)
-;;   (or (copilot-accept-completion)
-;;       (company-indent-or-complete-common nil)))
+(defun my-tab ()
+  (interactive)
+  (or (copilot-accept-completion)
+      (company-indent-or-complete-common nil)))
 
-;; (use-package! copilot
-;;   :hook (prog-mode . copilot-mode)
-;;   :bind (("C-TAB" . 'copilot-accept-completion-by-word)
-;;          ("C-<tab>" . 'copilot-accept-completion-by-word)
-;;          ("M-]" . 'copilot-next-completion)
-;;          ("M-[" . 'copilot-previous-completion)
-;;          :map company-active-map
-;;          ("<tab>" . 'my-tab)
-;;          ("TAB" . 'my-tab)
-;;          :map company-mode-map
-;;          ("<tab>" . 'my-tab)
-;;          ("TAB" . 'my-tab)))
+(use-package! copilot
+  :hook (prog-mode . copilot-mode)
+  :bind (("C-TAB" . 'copilot-accept-completion-by-word)
+         ("C-<tab>" . 'copilot-accept-completion-by-word)
+         ("M-]" . 'copilot-next-completion)
+         ("M-[" . 'copilot-previous-completion)
+         :map company-active-map
+         ("<tab>" . 'my-tab)
+         ("TAB" . 'my-tab)
+         :map company-mode-map
+         ("<tab>" . 'my-tab)
+         ("TAB" . 'my-tab)))
 
 
 
@@ -67,3 +67,26 @@
   :mode "\\.nu"
   :ensure t
   )
+
+(use-package! just-mode
+  :ensure t
+  )
+
+
+
+(after! dockerfile-mode
+  (set-docsets! 'dockerfile-mode "Docker")
+
+  (when (modulep! +lsp)
+    (add-hook 'dockerfile-mode-local-vars-hook #'lsp! 'append)))
+
+
+(use-package! chatgpt
+  :defer t
+  :config
+  (unless (boundp 'python-interpreter)
+    (defvaralias 'python-interpreter 'python-shell-interpreter))
+  (setq chatgpt-repo-path (expand-file-name "straight/repos/ChatGPT.el/" doom-local-dir))
+  (set-popup-rule! (regexp-quote "*ChatGPT*")
+    :side 'bottom :size .5 :ttl nil :quit t :modeline nil)
+  :bind ("C-c q" . chatgpt-query))

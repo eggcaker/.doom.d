@@ -3,9 +3,12 @@
 ;; theme
 (setq doom-theme 'doom-one) ;;'doom-palenight)
 
-(setq doom-font (font-spec :family "Fira Code Retina" :size 26 :weight 'normal :width 'normal)
-      doom-variable-pitch-font (font-spec :family "Fira Code Retina" :size 26 :weight 'normal :width 'normal)
-      doom-big-font (font-spec :family "Fira Code Retina" :size 40))
+(setq default-font "Fira Code Retina")
+;(setq default-font "CascadiaCode")
+
+(setq doom-font (font-spec :family default-font :size 26 :weight 'normal :width 'normal)
+      doom-variable-pitch-font (font-spec :family default-font  :size 26 :weight 'normal :width 'normal)
+      doom-big-font (font-spec :family default-font :size 40))
 
 (defun set-chinese-font()
   (interactive)

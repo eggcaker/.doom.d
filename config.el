@@ -24,5 +24,5 @@
 (load! "+work")
 (load! "+tools")
 (load! "+ledger")
-
+(load! "+flutter")
 (load! "+nushell")

@@ -40,3 +40,10 @@
 
 (package! deft :recipe (:host github :repo "jrblevin/deft"))
 (package! nushell-mode :recipe (:host github :repo "azzamsa/emacs-nushell"))
+
+(package! dockerfile-mode :pin "b63a3d12b7dea0cb9efc7f78d7ad5672ceab2a3f")
+
+(package! chatgpt
+  :recipe (:host github :repo "joshcho/ChatGPT.el" :files ("dist" "*.el")))
+
+(package! just-mode :recipe (:host github :repo "leon-barrett/just-mode.el" :files ("just-mode.el")))

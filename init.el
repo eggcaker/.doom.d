@@ -76,14 +76,14 @@
        ;;ansible
        ;;debugger         
        ;;direnv
-       ;;docker
+       docker
        ;; editorconfig      ; let someone else argue about tabs vs spaces
        ;;ein               ; tame Jupyter notebooks with emacs
        ;; (eval +overlay)     ; run code, run (also, repls)
        ;;gist              ; interacting with github gists
        (lookup           ; helps you navigate your code and documentation
         +docsets)        ; ...or in Dash docsets locally
-       lsp
+       (lsp +eglot)
        ;;macos             ; MacOS-specific commands
        magit             ; a git porcelain for Emacs
        ;;make              ; run make tasks from Emacs
@@ -105,9 +105,7 @@
        ;;(sh
         ;;   +powershell)
        json
-       ;; (dart
-        ;; +lsp
-        ;; +flutter)
+       (dart +lsp +flutter)
        yaml
        ;;agda              ; types of types of types of types...
        ;;assembly          ; assembly for fun or debugging
@@ -116,7 +114,7 @@
        ;; common-lisp       ; if you've seen one lisp, you've seen them all
        ;;coq               ; proofs-as-programs
        ;;crystal           ; ruby at the speed of c
-       ;; csharp            ; unity, .NET, and mono shenanigans
+       csharp            ; unity, .NET, and mono shenanigans
        data              ; config/data formats
        ;;elixir            ; erlang done right
        ;;elm               ; care for a cup of TEA?
@@ -138,7 +136,7 @@
        ;;lean
        ;;factor
        ledger            ; an accounting system in Emacs
-       ;;lua               ; one-based indices? one-based indices
+       lua               ; one-based indices? one-based indices
        markdown          ; writing docs for people to ignore
        ;; nim               ; python + lisp at the speed of c
        ;;nix               ; I hereby declare "nix geht mehr!"

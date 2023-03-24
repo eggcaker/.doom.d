@@ -38,7 +38,7 @@
 
 (setq-default projectile-track-known-projects-automatically nil)
 
-(setq-default python-shell-interpreter "~/miniconda3/envs/cx/bin/python3")
+(setq-default python-shell-interpreter "~/miniconda3/bin/python")
 
 
 (add-to-list 'default-frame-alist '(left . 0))

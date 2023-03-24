@@ -1,0 +1,21 @@
+# -*- mode: snippet -*-
+# name: Create a api call
+# key: xcapi
+# --
+TIMEOUT = 500
+
+body = {
+    "RequestContents": [
+        {
+            "Content": {"Text": "你好今天天气真不错啊"}
+        }
+    ]
+}
+
+headers = {'Content-Type': 'application/json'}
+
+${1:test}ResponseTask = Api.HttpClientSendAsync('POST', ${2:SERVER_ENDPOINT}, json.dumps(body,ensure_ascii=False), headers)
+anyTask = Task.WhenAny(${1}ResponseTask, Task.Delay(TIMEOUT)).Result
+
+if anyTask == emotionResponseTask:
+    ${1}Response = ${1}ResponseTask.Result.Content.ReadAsStringAsync().Result
