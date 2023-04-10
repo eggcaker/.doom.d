@@ -20,12 +20,6 @@
    org-agenda-compact-blocks t
    org-agenda-start-with-log-mode t)
 
-  (setq org-capture-templates
-        '(
-          ("t" "Simple todo item " entry
-                 (file+headline +org-capture-todo-file "Inbox")
-                 "* TODO %?\n%i\n%a" :prepend t)))
-
 
 (setq org-agenda-custom-commands
         '(("." "My Agenda"
@@ -110,6 +104,10 @@
                               '(("^ *\\([-]\\) "
                                  (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
 
+
+      (map! :leader
+            :desc "Archive all DONE tasks" "o D" #'my-archive-all-done)
+
       ;; Set faces for heading levels
       (dolist (face '((org-level-1 . 1.2)
                       (org-level-2 . 1.1)
@@ -134,9 +132,28 @@
       (set-face-attribute 'line-number nil :inherit 'fixed-pitch)
       (set-face-attribute 'line-number-current-line nil :inherit 'fixed-pitch))
 
+
+    (setq org-capture-templates
+          '(
+            ("t" "Simple todo item " entry
+             (file+headline +org-capture-todo-file "Inbox")
+             "* TODO %?\n%i\n%a" :prepend t)))
+
+
     ;; TODO for now should fix the font zoom in not working for zen mode
     ;; (cc/org-font-setup)
   )
+
+
+
+(defun my-archive-all-done ()
+  "Archive all DONE tasks in the current org-mode buffer."
+  (interactive)
+  (org-map-entries
+   (lambda ()
+     (org-archive-subtree)
+     (setq org-map-continue-from (outline-previous-heading)))
+   "/DONE" 'file))
 
 
 (after! org-agenda
@@ -217,3 +234,4 @@
 
 
   )
+
