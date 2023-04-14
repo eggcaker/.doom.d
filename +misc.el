@@ -20,3 +20,25 @@
   "Call the doom-sync.sh script to reload Doom."
   (interactive)
   (shell-command "~/.bin/doom-sync.sh"))
+
+
+(defun query-gpt-chat()
+  "Run script command with selected text or current line content and insert output in buffer"
+  (interactive)
+  (let* ((selected-text (if (region-active-p)
+                            (buffer-substring-no-properties (region-beginning) (region-end))
+                          nil))
+         (current-line (if selected-text
+                            (replace-regexp-in-string "\n" "GPT_BEST_SEP" selected-text)
+                          (thing-at-point 'line t)))
+         (output  (replace-regexp-in-string "\\w+Copy code$" ""  (shell-command-to-string (concat "wgpt " "`" current-line "`")) )
+
+                   ))
+    (beginning-of-line)
+    (insert "GPT> ")
+    (end-of-line)
+    (insert "\n\n")
+    (insert (mapconcat 'identity (nthcdr 5 (split-string output "\n")) "\n"))))
+
+
+(global-set-key (kbd "C-;") 'query-gpt-chat)
