@@ -29,16 +29,13 @@
                             (buffer-substring-no-properties (region-beginning) (region-end))
                           nil))
          (current-line (if selected-text
-                            (replace-regexp-in-string "\n" "GPT_BEST_SEP" selected-text)
+                            (replace-regexp-in-string "\n" "POOR_GPT_SEP" selected-text)
                           (thing-at-point 'line t)))
-         (output  (replace-regexp-in-string "\\w+Copy code$" ""  (shell-command-to-string (concat "wgpt " "`" current-line "`")) )
-
-                   ))
+         (output    (shell-command-to-string (concat "wgpt " "`" current-line "`"))))
     (beginning-of-line)
     (insert "GPT> ")
     (end-of-line)
     (insert "\n\n")
-    (insert (mapconcat 'identity (nthcdr 5 (split-string output "\n")) "\n"))))
-
+    (insert (mapconcat 'identity (nthcdr 5 (seq-filter (lambda (line) (not (string-suffix-p "Copy code" line))) (split-string output "\n"))) "\n"))))
 
 (global-set-key (kbd "C-;") 'query-gpt-chat)
