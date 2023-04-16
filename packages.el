@@ -47,3 +47,7 @@
   :recipe (:host github :repo "joshcho/ChatGPT.el" :files ("dist" "*.el")))
 
 (package! just-mode :recipe (:host github :repo "leon-barrett/just-mode.el" :files ("just-mode.el")))
+
+
+(package! pyim  :recipe (:host github :repo "tumashu/pyim"))
+(package! pyim-wbdict  :recipe (:host github :repo "tumashu/pyim-wbdict"))

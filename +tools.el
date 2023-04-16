@@ -90,3 +90,23 @@
   (set-popup-rule! (regexp-quote "*ChatGPT*")
     :side 'bottom :size .5 :ttl nil :quit t :modeline nil)
   :bind ("C-c q" . chatgpt-query))
+
+(use-package! pyim
+  :defer t
+  :init
+  (setq pyim-title "R")
+  :config
+  (setq default-input-method "pyim")
+  (setq pyim-default-scheme 'wubi)
+)
+
+(use-package! pyim-wbdict
+  :defer t
+  :after pyim
+  :config
+
+  (setq pyim-default-scheme 'wubi)
+  (pyim-wbdict-v86-enable))
+
+;; (require 'pyim-wbdict)
+;; (pyim-wbdict-v86-enable)
