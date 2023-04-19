@@ -97,16 +97,13 @@
   (setq pyim-title "R")
   :config
   (setq default-input-method "pyim")
-  (setq pyim-default-scheme 'wubi)
-)
+  (setq pyim-default-scheme 'wubi))
 
 (use-package! pyim-wbdict
-  :defer t
   :after pyim
   :config
-
-  (setq pyim-default-scheme 'wubi)
-  (pyim-wbdict-v86-enable))
+  (pyim-wbdict-v86-enable)
+  (message "get ininto pyim-wbdict"))
 
 ;; (require 'pyim-wbdict)
 ;; (pyim-wbdict-v86-enable)

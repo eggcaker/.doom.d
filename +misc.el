@@ -53,7 +53,7 @@
                             (replace-regexp-in-string "\n" "POOR_GPT_SEP" selected-text)
                           (thing-at-point 'line t)))
          (output
-                     (shell-command-to-string (concat "claude " "`" current-line "`"))
+                     (shell-command-to-string (concat "claude " " " current-line ))
 
 
                    ))
@@ -69,9 +69,34 @@
 
     ))
 
-(global-set-key (kbd "C-;") 'query-claude-chat)
+(global-set-key (kbd "C-M-;") 'query-claude-chat)
 
 
-GPT>>>
+(defun query-azure-chat()
+  "Run script command with selected text or current line content and insert output in buffer"
+  (interactive)
+  (let* ((selected-text (if (region-active-p)
+                            (buffer-substring-no-properties (region-beginning) (region-end))
+                          nil))
+         (current-line (if selected-text
+                            (replace-regexp-in-string "\n" "POOR_GPT_SEP" selected-text)
+                          (thing-at-point 'line t)))
+         (output
+                 (replace-regexp-in-string "\n+" "\n"
+                     (shell-command-to-string (concat "azure" " " current-line ))
 
-GPT>>>
+
+                   ))
+    (beginning-of-line)
+    (insert "GPT>>> ")
+    (end-of-line)
+    (insert "\n")
+    (message output)
+    (if (not (string= output ""))
+    (insert (mapconcat 'identity (nthcdr 5 (seq-filter (lambda (line) (not (string-suffix-p "Copy code" line))) (split-string output "\n"))) "\n"))
+    (insert "\n<<<GPT\n")
+
+
+    )))
+
+(global-set-key (kbd "C-;") 'query-azure-chat)
