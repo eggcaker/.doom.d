@@ -1,5 +1,6 @@
 ;;; +misc.el -*- lexical-binding: t; -*-
 
+
 (defun gpt-replace-text-after-yank (&rest args)
   "Perform multiple replacements on pasted text using regex."
   (let* ((start (mark t))
@@ -21,6 +22,17 @@
   (interactive)
   (shell-command "~/.bin/doom-sync.sh"))
 
+(defun generate-gpt-prefix ()
+     """Generate a prefix for the GPT prompt."""
+     (if (< (length (thing-at-point 'lint t )) 2)
+         ""
+       "GTP>>> " ))
+
+(defun generate-gpt-subfix ()
+     """Generate a subfix for the GPT prompt."""
+     "\n<<<GPT"
+)
+
 
 (defun query-gpt-chat()
   "Run script command with selected text or current line content and insert output in buffer"
@@ -33,7 +45,7 @@
                           (thing-at-point 'line t)))
          (output    (shell-command-to-string (concat "wgpt " "`" current-line "`"))))
     (beginning-of-line)
-    (insert "GPT>>> ")
+    (insert (generate-gpt-prefix))
     (end-of-line)
     (insert "\n\n")
     (insert (mapconcat 'identity (nthcdr 5 (seq-filter (lambda (line) (not (string-suffix-p "Copy code" line))) (split-string output "\n"))) "\n"))
@@ -67,6 +79,7 @@
   (let ((formatted-output output)
         (replacements '(("\n" . "")
                         ("\n" . "")
+                        ("[[:space:]]+$" . "")
                         (" +" . ""))))
     ;; Remove unwanted characters
     (dolist (replacement replacements)
@@ -86,14 +99,15 @@
          (current-line (if selected-text
                             (replace-regexp-in-string "\n" "POOR_GPT_SEP" selected-text)
                           (thing-at-point 'line t)))
-         (output (shell-command-to-string (concat "azure" " " current-line ))))
+         (output  (shell-command-to-string (concat "azure" " " (base64-encode-string (string-as-unibyte current-line) t)  ))))
     (beginning-of-line)
-    (insert "GPT>>> ")
+    (insert (generate-gpt-prefix))
     (end-of-line)
-    (insert "\n")
     (if (not (string= output ""))
     (insert (mapconcat 'identity (nthcdr 5 (seq-filter (lambda (line) (not (string-suffix-p "Copy code" line))) (split-string (format-azure-output output) "\n"))) "\n"))
-    (insert "\n<<<GPT\n"))))
+    (insert (generate-gpt-subfix)))))
 
 
 (global-set-key (kbd "C-;") 'query-azure-chat)
+
+
