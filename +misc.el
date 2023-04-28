@@ -81,11 +81,9 @@
                         ("\n" . "")
                         ("[[:space:]]+$" . "")
                         (" +" . ""))))
-    ;; Remove unwanted characters
     (dolist (replacement replacements)
       (setq formatted-output (replace-regexp-in-string (car replacement) (cdr replacement) formatted-output)))
 
-    ;; Replace more than 2 newlines with 2 newlines
     (while (string-match "\n\n\n+" formatted-output)
       (setq formatted-output (replace-match "\n\n" t t formatted-output)))
 
