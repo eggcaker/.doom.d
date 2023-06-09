@@ -95,6 +95,15 @@
   :defer t
   :init
   (setq pyim-title "R")
+  (setq pyim-english-input-switch-functions
+        '(pyim-probe-auto-english
+pyim-probe-evil-normal-mode
+          pyim-probe-isearch-mode
+          pyim-probe-org-speed-commands
+          pyim-probe-org-structure-template
+          pyim-probe-program-mode
+
+          ))
   :config
   (setq default-input-method "pyim")
   (setq pyim-default-scheme 'wubi))
