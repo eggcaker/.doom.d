@@ -51,3 +51,5 @@
 
 (package! pyim  :recipe (:host github :repo "tumashu/pyim"))
 (package! pyim-wbdict  :recipe (:host github :repo "tumashu/pyim-wbdict"))
+
+;; (package! nushell-ts-babel :recipe (:host github :repo "herbertjones/nushell-ts-babel" :files ("nushell-ts-babel.el")))

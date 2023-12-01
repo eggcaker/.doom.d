@@ -17,14 +17,14 @@
 (setq-default abbrev-mode t)
 
 (setq 
-  abbrev-file-name "~/.doom.d/abbrev_defs.el")
+ abbrev-file-name "~/.doom.d/abbrev_defs.el")
 
 
 
 (add-to-list 'exec-path "/usr/local/bin")
 
-
-(setq-default server-name "emacs_server_27_2")
+(setq-default server-socket-dir "~/.emacs.d/.local/server")
+(setq-default server-name "emacs_server_29_1")
 
 
 (prefer-coding-system       'utf-8)
@@ -46,9 +46,11 @@
 (add-to-list 'default-frame-alist '(height . 50))
 (add-to-list 'default-frame-alist '(width. 100))
 
-
+(setenv "PATH" (concat (getenv "PATH") ":" (expand-file-name "/opt/homebrew/bin")))
 (setenv "PATH" (concat (getenv "PATH") ":" (expand-file-name "~/.cargo/bin")))
+
 (setq exec-path (append exec-path (list (expand-file-name "~/.cargo/bin"))))
+(setq exec-path (append exec-path (list (expand-file-name "~/.cargo/bin")  "/opt/homebrew/bin")))
 
 (setq whitespace-global-modes '(not go-mode))
 

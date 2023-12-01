@@ -3,12 +3,14 @@
 ;; theme
 (setq doom-theme 'doom-one) ;;'doom-palenight)
 
-(setq default-font "Fira Code Retina")
-;(setq default-font "CascadiaCode")
+;; (setq default-font "Fira Code Retina")
+;; (setq default-font "San Francisco")
+;; (setq default-font "CascadiaCode")
+(setq default-font "JetBrainsMono Nerd Font")
 
-(setq doom-font (font-spec :family default-font :size 26 :weight 'normal :width 'normal)
-      doom-variable-pitch-font (font-spec :family default-font  :size 26 :weight 'normal :width 'normal)
-      doom-big-font (font-spec :family default-font :size 40))
+(setq doom-font (font-spec :family default-font :size 14 :weight 'normal :width 'normal)
+      doom-variable-pitch-font (font-spec :family default-font  :size 14 :weight 'normal :width 'normal)
+      doom-big-font (font-spec :family default-font :size 32))
 
 (defun set-chinese-font()
   (interactive)
@@ -28,7 +30,7 @@
                            ((and doom-big-font-mode writeroom-mode) 72)
                            (doom-big-font-mode 50)
                            (writeroom-mode  46)
-                           (t 32)))))))
+                           (t 20)))))))
 
 (boundp 'writeroom-mode)
 (defadvice! add-my-font-config (&rest _)
@@ -37,6 +39,9 @@
 
 (add-hook! 'doom-big-font-mode-hook (set-chinese-font))
 (add-hook! 'writeroom-mode-hook (set-chinese-font))
+
+
+(setq-default menu-bar-mode nil)
 
 ;; line spacing
 (setq display-line-numbers-type nil)
@@ -50,7 +55,7 @@
 
 ;; dashboard custom
 (defun banner-line(msg)
- (insert
+  (insert
    (propertize
     (+doom-dashboard--center
      +doom-dashboard--width

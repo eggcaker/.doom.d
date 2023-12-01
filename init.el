@@ -31,7 +31,7 @@
        (popup            ; tame sudden yet inevitable temporary windows
         +all             ; catch all popups that start with an asterix
         +defaults)       ; default popup rules
-      ;;pretty-code       ; replace bits of code with pretty symbols
+       ;;pretty-code       ; replace bits of code with pretty symbols
        ;;tabs              ; an tab bar for Emacs
        ;;treemacs          ; a project drawer, like neotree but cooler
        unicode           ; extended unicode support for various languages
@@ -103,7 +103,7 @@
 
        :lang
        ;;(sh
-        ;;   +powershell)
+       ;;   +powershell)
        json
        (dart +lsp +flutter)
        yaml
@@ -114,7 +114,7 @@
        ;; common-lisp       ; if you've seen one lisp, you've seen them all
        ;;coq               ; proofs-as-programs
        ;;crystal           ; ruby at the speed of c
-       csharp            ; unity, .NET, and mono shenanigans
+       ;; csharp            ; unity, .NET, and mono shenanigans
        data              ; config/data formats
        ;;elixir            ; erlang done right
        ;;elm               ; care for a cup of TEA?
@@ -124,18 +124,18 @@
        ;;faust             ; dsp, but you get to keep your soul
        ;;fsharp           ; ML stands for Microsoft's Language
        ;;fstar             ; (dependent) types and (monadic) effects and Z3
-       (go +lsp)                ; the hipster dialect
+       ;; (go +lsp)                ; the hipster dialect
        ;;(haskell +dante)  ; a language that's lazier than I am
        ;;hy                ; readability of scheme w/ speed of python
        ;;idris             ;
        ;;(java +meghanada) ; the poster child for carpal tunnel syndrome
-       ;;(javascript +lsp)     ; all(hope(abandon(ye(who(enter(here))))))
+       (javascript +lsp +tree-sitter)     ; all(hope(abandon(ye(who(enter(here))))))
        ;;julia             ; a better, faster MATLAB
        ;; kotlin            ; a better, slicker Java(Script)
        ;; (latex +latexmk +cdlatex +skim)            ; writing papers in Emacs has never been so fun
        ;;lean
        ;;factor
-       ledger            ; an accounting system in Emacs
+       ;; ledger            ; an accounting system in Emacs
        lua               ; one-based indices? one-based indices
        markdown          ; writing docs for people to ignore
        ;; nim               ; python + lisp at the speed of c
@@ -182,7 +182,7 @@
        ;;twitter           ; twitter client https://twitter.com/vnought
 
        :config
-      ;;literate
+       ;;literate
        (default +bindings +smartparens)
 
        :private

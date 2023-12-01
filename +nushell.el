@@ -5,3 +5,6 @@
   :mode "\\.nu"
   :ensure t
   )
+
+
+;; (use-package! nushell-ts-babel :ensure t)
