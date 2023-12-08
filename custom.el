@@ -15,11 +15,12 @@
  '(jdee-db-active-breakpoint-face-colors (cons "#171F24" "#237AD3"))
  '(jdee-db-requested-breakpoint-face-colors (cons "#171F24" "#579C4C"))
  '(jdee-db-spec-breakpoint-face-colors (cons "#171F24" "#777778"))
+ '(magit-todos-insert-after '(bottom) nil nil "Changed by setter of obsolete option `magit-todos-insert-at'")
  '(objed-cursor-color "#D16969")
  '(org-agenda-files
    '("~/src/learn/TODO.org" "~/org/journal.org" "~/org/personal.org" "~/org/todo.org" "~/org/xiaobing.org"))
  '(package-selected-packages
-   '(key-chord htmlize org just-mode justl lua-mode kubel kubernetes-evil kubernetes helm-tree-sitter tree-sitter-indent tree-sitter-langs tree-sitter protobuf-mode ledger-mode counsel swiper jq-mode restclient-helm org-roam-ui efar verb csharp-mode secret-mode v-mode snow magit powershell eglot lsp-mode json-mode org-starter tiny org-books org-fragtog org-super-agenda forge))
+   '(org-modern key-chord htmlize org just-mode justl lua-mode kubel kubernetes-evil kubernetes helm-tree-sitter tree-sitter-indent tree-sitter-langs tree-sitter protobuf-mode ledger-mode counsel swiper jq-mode restclient-helm org-roam-ui efar verb csharp-mode secret-mode v-mode snow magit powershell eglot lsp-mode json-mode org-starter tiny org-books org-fragtog org-super-agenda forge))
  '(pdf-view-midnight-colors (cons "#d4d4d4" "#1e1e1e"))
  '(rustic-ansi-faces
    ["#1e1e1e" "#D16969" "#579C4C" "#D7BA7D" "#339CDB" "#C586C0" "#85DDFF" "#d4d4d4"])
@@ -57,4 +58,4 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(ts-fold-replacement-face ((t (:foreground unspecified :box nil :inherit font-lock-comment-face :weight light)))))

@@ -7,7 +7,7 @@
   (setq verb-auto-kill-response-buffers t)
   (setq verb-json-use-mode 'json-mode)
   :config
-)
+  )
 
 (use-package! ob-verb
   :ensure verb
@@ -28,16 +28,16 @@
        :desc "Verb set var " :n "vv" #'verb-set-var
        :desc "Verb set var " :n "vl" #'verb-show-vars))
 (map!
-      (:map verb-response-body-mode-map
-       :localleader
-       :desc "Resend Request" :n "s" #'verb-re-send-request
-       :desc "Kill Response buffer and window" :n "k" #'verb-kill-response-buffer-and-window
-       :desc "Toggle headers" :n "t" #'verb-toggle-show-headers))
+ (:map verb-response-body-mode-map
+  :localleader
+  :desc "Resend Request" :n "s" #'verb-re-send-request
+  :desc "Kill Response buffer and window" :n "k" #'verb-kill-response-buffer-and-window
+  :desc "Toggle headers" :n "t" #'verb-toggle-show-headers))
 
 (map!
-      (:map verb-response-headers-mode-map
-       :localleader
-       :desc "Kill buffer and window" :n "q" #'verb-kill-buffer-and-window))
+ (:map verb-response-headers-mode-map
+  :localleader
+  :desc "Kill buffer and window" :n "q" #'verb-kill-buffer-and-window))
 
 
 
@@ -57,6 +57,13 @@
          :map company-active-map
          ("<tab>" . 'my-tab)
          ("TAB" . 'my-tab)
+         :map copilot-completion-map
+         ("<tab>" . 'copilot-accept-completion)
+         ("TAB" . 'copilot-accept-completion)
+         ("C-<tab>" . 'copilot-accept-completion-by-word)
+         ("C-TAB" . 'copilot-accept-completion-by-word)
+         ("M-]" . 'copilot-next-completion)
+         ("M-[" . 'copilot-previous-completion)
          :map company-mode-map
          ("<tab>" . 'my-tab)
          ("TAB" . 'my-tab)))
@@ -97,7 +104,7 @@
   (setq pyim-title "R")
   (setq pyim-english-input-switch-functions
         '(pyim-probe-auto-english
-pyim-probe-evil-normal-mode
+          pyim-probe-evil-normal-mode
           pyim-probe-isearch-mode
           pyim-probe-org-speed-commands
           pyim-probe-org-structure-template
